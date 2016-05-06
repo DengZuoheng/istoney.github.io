@@ -1,8 +1,10 @@
 ---
+layout: post
 title: 编程之美 1.1 让CPU占用率曲线听你指挥
 category: beauty of programming
-tags: CPU
+tags: [CPU]
 ---
+{% include JB/setup %}
 
 ### # 题意
 写一个程序，让用户决定Windows任务管理器的CPU占用率。实现如下三种情况：
