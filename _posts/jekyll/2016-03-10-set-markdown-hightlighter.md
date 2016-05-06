@@ -12,6 +12,7 @@ Github Pages在今年宣布开始使用Jekyll 3.0, 导致的变化有：
  - 将只支持Rouge作为Markdown代码语法高亮
  - 大幅提升构建速度
  - 不在支持相对Permalinks和Textile
+
 对于已经托管在Github Pages上Markdown高亮代码出现了对应的问题，当提交包含Markdown代码高亮的Post时，就会收到Warning：
 
 ```
