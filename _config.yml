@@ -11,12 +11,12 @@ markdown: kramdown
 # Themes are encouraged to use these universal variables
 # so be sure to set them if your theme uses them.
 #
-title : Jekyll Bootstrap-3
+title : Stoney's Blog
 tagline: Site Tagline
 author :
-  name : Name Lastname
-  email : blah@email.test
-  github : username
+  name : stoney
+  email : hongleisu.hls@gmail.com
+  github : istoney
   twitter : username
   feedburner : feedname
 
@@ -108,7 +108,7 @@ JB :
         tracking_id : 'UA-***'
         property_name : 'PROPERTY NAME'
     getclicky :
-      site_id : 
+      site_id :
     mixpanel :
         token : '_MIXPANEL_TOKEN_'
     piwik :
@@ -134,6 +134,5 @@ JB :
   #   ./_includes/custom/[HELPER]
   # where [HELPER] is the name of the helper you are overriding.
  
-  # Setting for bootswatch-theme 
+  # Setting for bootswatch-theme
   bootswatch-theme: cerulean
-   
