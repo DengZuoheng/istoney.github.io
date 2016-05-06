@@ -1,8 +1,10 @@
 ---
+layout: post
 title: 编程之美 1.2 中国象棋将帅问题
 category: beauty of programming
-tags: byte char
+tags: [byte, char]
 ---
+{% include JB/setup %}
 
 ### # 题意
 中国象棋中，“将”和“帅”相隔遥远，并且不能照面。为了方便，用A、B分别表示“将”和“帅”。

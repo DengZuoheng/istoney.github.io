@@ -1,8 +1,10 @@
 ---
+layout: post
 title: 蘑菇街2016笔试题 修理桌子
 category : interview problems
-tags: 递归
+tags: [递归]
 ---
+{% include JB/setup %}
 
 ### # 题意
 Arthur买了一张大桌子，但是桌子腿的长度不相同，导致桌子不稳，需要修理。桌子有n条腿，第i条腿长度为\\(l_i\\)，移除第i条腿的代价为\\(d_i\\)。桌子平稳的条件是超过一半的桌子腿长度达到最大长度。计算使桌子平稳的最小代价。

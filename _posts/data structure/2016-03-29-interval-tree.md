@@ -1,8 +1,10 @@
 ---
+layout: post
 title: 区间树(线段树) Interval Tree
 category : data structure
-tags: 区间树 线段树
+tags: [区间树, 线段树]
 ---
+{% include JB/setup %}
 
 ### # 定义
 **区间树** (Interval tree), 是一种二叉搜索树。它将一个区间划分成一些单元区间(即单个数据)，每个单元区间对应一个叶节点，非叶节点表示其所代表的子树对应的子区间.
