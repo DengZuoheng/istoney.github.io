@@ -1,8 +1,10 @@
 ---
+layout: post
 title: Markdown 简明语法
 category: tools
-tags: markdwon 语法
+tags: [markdwon, 语法]
 ---
+{% include JB/setup %}
 ----
 ## 基本符号
 - \*, -, + 3个符号效果都一样，这3个符号被称为Markdown符号

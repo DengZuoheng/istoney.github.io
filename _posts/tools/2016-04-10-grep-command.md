@@ -1,8 +1,10 @@
 ---
+layout: post
 title: Linux命令之grep
 category: tools
-tags: grep
+tags: [grep]
 ---
+{% include JB/setup %}
 
 grep是Linux中的文本搜索工具，可以使用正则表达式搜索文本，并将匹配的文本打印。grep的全称是Global Regular Expression Print，即全局正则表达式打印。
 
@@ -177,7 +179,7 @@ Context control:
                             选择条件，对匹配的字符串进行高亮
 
   -U, --binary              do not strip CR characters at EOL (MSDOS/Windows)
-  
+
   -u, --unix-byte-offsets   report offsets as if CRs were not there
                             (MSDOS/Windows)
 ```

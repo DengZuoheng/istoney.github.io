@@ -2,7 +2,7 @@
 layout: post
 title: 编程之美 1.2 中国象棋将帅问题
 category: beauty of programming
-tags: [byte, char]
+tags: [byte]
 ---
 {% include JB/setup %}
 

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 蘑菇街2016笔试题 修理桌子
-category : interview problems
+category : algorithms
 tags: [递归]
 ---
 {% include JB/setup %}

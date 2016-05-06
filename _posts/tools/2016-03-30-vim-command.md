@@ -1,8 +1,10 @@
 ---
+layout: post
 title: Vim 常用操作命令
 category: tools
-tags: vim
+tags: [vim]
 ---
+{% include JB/setup %}
 
 ### 移动操作
 **字符移动**
