@@ -9,7 +9,7 @@ This is Stoney's tec-blog, built with [Jekyll Bootstrap 3](http://github.com/dbt
 
 ## Recent Posts
 
-Here are recent "posts list".
+Here's the recent "posts list".
 
 <ul class="posts">
   {% for post in site.posts %}
