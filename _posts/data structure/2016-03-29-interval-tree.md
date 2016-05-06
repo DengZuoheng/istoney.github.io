@@ -22,7 +22,7 @@ const int N = 6;
 int array[N] = {2, 5, 1, 4, 9, 3};
 ```
 
-![区间树](/attaches/interval-tree-sample.jpg)
+![区间树](/assets/post_img/interval-tree-sample.jpg)
 
 ### # 构建区间树
 区间树的构建采用递归方式，当前区间是单元区间时直接赋值给节点，否则，首先递归构建左右子树，然后将左右子树的最小值赋值给当前结点。其复杂度是O(N).

@@ -60,11 +60,11 @@ int main(){
 
 其结构如下图所示：
 
-![进程结构](/attaches/c++/fork-processes.jpg)
+![进程结构](/assets/post_img/c++/fork-processes.jpg)
 
 则共输出去6个K。但是答案并不是6，而是8，如下图。
 
-![fork()示例输出结果](/attaches/c++/fork-output-0.jpg)
+![fork()示例输出结果](/assets/post_img/c++/fork-output-0.jpg)
 
 #### # 输出进程id
 为了验证程序执行过程中子进程的生成情况，在输出K的时候，将i的值和当前进程的id同时输出。
@@ -89,7 +89,7 @@ int main(){
 ```
 其结果如下图：
 
-![输出i和pid](/attaches/c++/fork-output-1.jpg)
+![输出i和pid](/assets/post_img/c++/fork-output-1.jpg)
 可见程序执行中确实只有四个进程，但是进程①和②却分别多输出了一次。
 
 #### # 加上时间戳
@@ -134,7 +134,7 @@ int main(){
 ```
 运行结果如图
 
-![输出i和pid](/attaches/c++/fork-output-2.jpg)
+![输出i和pid](/assets/post_img/c++/fork-output-2.jpg)
 
 可见进程①和进程②的第一次输出，被输出了两次，联想到c++的标准输出具有缓存机制，有可能第一次输出时，将输出内存存放在缓存中。在执行fork()的时候，io缓存也被拷贝到子进程中，因此重复输出。
 
@@ -168,4 +168,4 @@ int main(){
 ```
 运行结果如下，因此多输出的两次就是因为输出缓存也被子进程拷贝，造成重复输出。
 
-![fork()示例输出结果](/attaches/c++/fork-output-3.jpg)
+![fork()示例输出结果](/assets/post_img/c++/fork-output-3.jpg)
