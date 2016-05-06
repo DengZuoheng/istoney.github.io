@@ -107,9 +107,9 @@ JB :
   analytics :
     provider : google
     google :
-        tracking_id : 'UA-***'
+        tracking_id : 'UA-77338766-1'
     googleUA :
-        tracking_id : 'UA-***'
+        tracking_id : 'UA-77338766-1'
         property_name : 'PROPERTY NAME'
     getclicky :
       site_id :
@@ -137,6 +137,6 @@ JB :
   # and include your custom code. Your custom file must be defined at:
   #   ./_includes/custom/[HELPER]
   # where [HELPER] is the name of the helper you are overriding.
- 
+
   # Setting for bootswatch-theme
   bootswatch-theme: cerulean
