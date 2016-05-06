@@ -1,6 +1,6 @@
 ---
 layout: post
-category: lessons
+category: jekyll
 tagline: "Supporting tagline"
 tags : [jekyll]
 ---
@@ -62,7 +62,7 @@ Therefore if you like to keep things simple and you prefer the command-line over
 - Ability to host freely on GitHub Pages.
 - No database required.
 
-# How Jekyll Works
+## How Jekyll Works
 
 The following is a complete but concise outline of exactly how Jekyll works.
 
@@ -74,7 +74,7 @@ Learning these core concepts should help you avoid common frustrations and ultim
 help you better understand the code examples contained throughout Jekyll-Bootstrap.
 
 
-## Initial Setup
+### Initial Setup
 
 After [installing jekyll](/index.html#start-now) you'll need to format your website directory in a way jekyll expects.
 Jekyll-bootstrap conveniently provides the base directory format.
