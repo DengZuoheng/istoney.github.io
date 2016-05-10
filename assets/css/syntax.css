@@ -4,9 +4,9 @@ pre[class='highlight'] {
   /*Sublime 2 background*/
   /* background-color:#272822; */
   /*Atom background*/
-  /* background-color:#282C34; */
+  background-color:#282C34;
   /*Atom background 2*/
-  background-color:#31363F;
+  /* background-color:#31363F; */
 }
 .highlight .gh {
   color: #999999;
