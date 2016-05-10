@@ -87,9 +87,9 @@ distData = sc.parallelize(data)
 
 创建之后，分布式数据集(distData)就可以进行并行操作。例如，我们可以调用`distData.reduce(lambda a, b: a + b)`把列表中的所有元素相加求和。关于分布式数据集的操作，我们稍后讨论。
 
-并行数据集的一个重要参数是分割的块(partitions)的数量。Spark会在集群上为每一个块运行一个任务。通常，划分块的时候，你会按照集群中平均每个CPU 2-4块来划分。一般，Spark会根据集群的情况自动设置数据块的数量。但是，你也可以通过向parallelize传如第二个参数来手动设置（比如，sc.parallelize(data, 10))。
+并行数据集的一个重要参数是分割(partitions)的数量。Spark会在集群上为每一个分割运行一个任务。通常，分割的时候，你会按照集群中平均每个CPU 2-4个分割来划分。一般，Spark会根据集群的情况自动设置数据分割的数量。但是，你也可以通过向parallelize传入第二个参数来手动设置（比如，sc.parallelize(data, 10))。
 
-注意：在代码中的有些地方会使用分片（slices）（块partitions的同义词）来保持后向兼容性。
+注意：在代码中的有些地方会使用分片（slices）（partitions的同义词）来保持后向兼容性。
 
 ### # External Datasets
 PySpark可以从任何Hadoop支持的存储系统创建分布式数据集，包括本地文件系统、HDFS、Cassandra、HBase、[Amazon S3](http://wiki.apache.org/hadoop/AmazonS3)等。Spark支持文本文件，[SequenceFiles](http://hadoop.apache.org/docs/current/api/org/apache/hadoop/mapred/SequenceFileInputFormat.html)，以及任何其他Hadoop输入格式（[InputFormat](http://hadoop.apache.org/docs/stable/api/org/apache/hadoop/mapred/InputFormat.html)）。
@@ -99,3 +99,11 @@ PySpark可以从任何Hadoop支持的存储系统创建分布式数据集，包�
 ```py
 >>> distFile = sc.textFile("data.txt")
 ```
+
+创建之后就可以在`distFile`上进行数据集操作了。例如，我们可以使用`map`和`reduce`操作把所有行的大小加起来：`distFile.map(lambda s: len(s)).reduce(lambda a, b: a + b)`。
+
+在Spark中读取文件需要注意的几个地方：
+
+- 如果使用本地文件系统路径，必须保证在worker节点上的相同路径上该文件也是可以访问的。或者把该文件拷贝到所有worker节点上，或者使用网络挂载的共享文件系统。
+- Spark所有基于文件的输入方法，包括`textFile`，都持支目录、压缩文件和通配符。例如，你可以使用`textFile("/my/directory")`，`textFile("/my/directory/*.txt")`和`textFile("/my/directory/*.gz")`。
+- `textFile`方法还支持一个可选的参数来控制文件分割的数量。默认情况下，Spark
