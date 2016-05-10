@@ -1,6 +1,13 @@
 .highlight-rouge table td { padding: 5px; }
 .highlight-rouge table pre { margin: 0;}
-pre[class='highlight'] {background-color:#272822;}
+pre[class='highlight'] {
+  /*Sublime 2 background*/
+  /* background-color:#272822; */
+  /*Atom background*/
+  /* background-color:#282C34; */
+  /*Atom background 2*/
+  background-color:#313637;
+}
 .highlight .gh {
   color: #999999;
 }

@@ -92,4 +92,10 @@ distData = sc.parallelize(data)
 注意：在代码中的有些地方会使用分片（slices）（块partitions的同义词）来保持后向兼容性。
 
 ### # External Datasets
-PySpark可以从任何Hadoop支持的存储系统创建分布式数据集，包括本地文件系统、HDFS、Cassandra、HBase、[Amazon S3](http://wiki.apache.org/hadoop/AmazonS3)等。
+PySpark可以从任何Hadoop支持的存储系统创建分布式数据集，包括本地文件系统、HDFS、Cassandra、HBase、[Amazon S3](http://wiki.apache.org/hadoop/AmazonS3)等。Spark支持文本文件，[SequenceFiles](http://hadoop.apache.org/docs/current/api/org/apache/hadoop/mapred/SequenceFileInputFormat.html)，以及任何其他Hadoop输入格式（[InputFormat](http://hadoop.apache.org/docs/stable/api/org/apache/hadoop/mapred/InputFormat.html)）。
+
+文本文件的RDD可以使用SparkContext的`textFile`方法创建。这个方法需要一个文件的URI（本地机器的文件路径，或者是`hdfs://`，`s3n://`等URI），然后读入该文件，作为以行为基本单位的数据集合。下面是一个调用示例：
+
+```py
+>>> distFile = sc.textFile("data.txt")
+```
