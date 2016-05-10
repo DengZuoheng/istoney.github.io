@@ -5,7 +5,7 @@ category: tools
 tags: [markdwon, 语法]
 ---
 {% include JB/setup %}
-----
+
 ### # 基本符号
 - \*, -, + 3个符号效果都一样，这3个符号被称为Markdown符号
 - 空白行表示另起一个段落

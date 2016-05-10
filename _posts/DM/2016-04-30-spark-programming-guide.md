@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Spark Programming Guide 翻译
+title: Spark Programming Guide 编程指南 1.6.1
 catergory: data_mining
 tags: [spark]
 ---
@@ -106,4 +106,30 @@ PySpark可以从任何Hadoop支持的存储系统创建分布式数据集，包�
 
 - 如果使用本地文件系统路径，必须保证在worker节点上的相同路径上该文件也是可以访问的。或者把该文件拷贝到所有worker节点上，或者使用网络挂载的共享文件系统。
 - Spark所有基于文件的输入方法，包括`textFile`，都持支目录、压缩文件和通配符。例如，你可以使用`textFile("/my/directory")`，`textFile("/my/directory/*.txt")`和`textFile("/my/directory/*.gz")`。
-- `textFile`方法还支持一个可选的参数来控制文件分割的数量。默认情况下，Spark
+- `textFile`方法还支持一个可选的参数来控制文件分割的数量。默认情况下，Spark会为文件的每个块（block）创建一个分割（HDFS中默认的文件块大小为64MB），但是你也可以通过传入一个更大的值使其分割的数量更多。需要注意的是，分割的数量不能小于文件块的数量。
+
+除了文本文件，Spark的Python API还支持几种其他的格式：
+
+- `SparkContext.wholeTextFiles`可以读取一个包含多个小的文本文件的目录，然后为每个文件返回一个(filename, content)的值对。这个方法和`textFile`形成一个对比，`textFile`方法将每个文件的每一行作为一条记录返回。
+- `RDD.saveAsPickleFile`和`SparkContext.pickleFile`支持将RDD以序列化的Python对象的简单格式保存起来。序列化操作会被批量执行，批量处理的默认数量为10.
+- 序列文件（SequenceFile）和Hadoop的输入/输出格式（Input/Output Formats）。
+
+注意：这一特性目前被标记为“实验的”（`Experimental`）并向高级用户提供的。将来可能会被基于Spark SQL的读写（read/write）支持而取代，在这种情景下Spark SQL是首选的方式。
+
+#### # Writable Support
+PySpark SequenceFile支持在Java中载入一个RDD的键值对，将可写类型转换成Java基本类型，以及使用[Pyrolite](https://github.com/irmen/Pyrolite/)序列化Java的结果对象。当把一个RDD键值对保存为SequenceFile时，PySpark会指向上述过程的反过程。它把Python对象反序列化成Java对象，然后将其转换成可写类型。下列可写类型将会自动转化：
+
+| Writable Type | Python Type |
+|:--------------|:------------|
+|Text|unicode str|
+|IntWritable|int|
+|FloatWritable|float|
+|DoubleWritable|float|
+|BooleanWritable|bool|
+|BytesWritable|bytearray|
+|NullWritable|None|
+|MapWritable|dict|
+
+数组类型并不支持自动转换。当读写数组时，用户需要自定义`ArrayWritable`的子类型，以及写入时将数组转换为自定义的`ArrayWritable`的转换器，和读入时将`ArrayWritable`转换为Java对象数组，并序列化为Python元组的转换器。想要从主要类型数组得到Python `array.array`，用户需要自定义转换器。
+
+#### # Saving and Loading SequenceFiles
