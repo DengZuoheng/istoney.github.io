@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Spark Programming Guide 编程指南 1.6.1
+title: Spark Programming Guide 编程指南 v1.6.1
 catergory: data_mining
 tags: [spark]
 ---
@@ -122,14 +122,46 @@ PySpark SequenceFile支持在Java中载入一个RDD的键值对，将可写类�
 | Writable Type | Python Type |
 |:--------------|:------------|
 |Text|unicode str|
-|IntWritable|int|
-|FloatWritable|float|
-|DoubleWritable|float|
-|BooleanWritable|bool|
-|BytesWritable|bytearray|
-|NullWritable|None|
-|MapWritable|dict|
+|IntWritable    |int|
+|FloatWritable  |float|
+|DoubleWritable |float|
+|BooleanWritable    |bool|
+|BytesWritable  |bytearray|
+|NullWritable   |None|
+|MapWritable    |dict|
 
 数组类型并不支持自动转换。当读写数组时，用户需要自定义`ArrayWritable`的子类型，以及写入时将数组转换为自定义的`ArrayWritable`的转换器，和读入时将`ArrayWritable`转换为Java对象数组，并序列化为Python元组的转换器。想要从主要类型数组得到Python `array.array`，用户需要自定义转换器。
 
 #### # Saving and Loading SequenceFiles
+和文本文件类似，序列文件可以在指明的路径上保存和加载。键和值的类型都可以指定，但是对于标准的可写类型不需要指定。
+
+```py
+>>> rdd = sc.parallelize(range(1, 4)).map(lambda x: (x, "a" * x))
+>>> rdd.saveAsSequenceFile("path/to/file")
+>>> sorted(sc.sequenceFile("path/to/file").collect())
+[(1, u'a'), (2, u'aa'), (3, u'aaa')]
+```
+
+#### # Saving and Loading Other Hadoop Input/Output Formats
+PySpark还可以读入任何hadoop输入格式（InputFormat），以及写入任何Hadoop输出格式（OutputFormat），不管是新的，还是旧的Hadoop MapReduce API都可以。如果需要，可以以Python dict的形式传入一个Hadoop配置。下面是使用Elasticsearch ESInputFormat的例子：
+
+```py
+$ SPARK_CLASSPATH=/path/to/elasticsearch-hadoop.jar ./bin/pyspark
+>>> conf = {"es.resource" : "index/type"}   # assume Elasticsearch is running on localhost defaults
+>>> rdd = sc.newAPIHadoopRDD("org.elasticsearch.hadoop.mr.ESInputFormat", \
+          "org.apache.hadoop.io.NullWritable", "org.elasticsearch.hadoop.mr.LinkedMapWritable", conf=conf)
+>>> rdd.first()     # the result is a MapWritable that is converted to a Python dict
+(u'Elasticsearch ID',
+ {u'field1': True,
+  u'field2': u'Some Text',
+  u'field3': 12345})
+```
+
+注意到，如果输入格式只是简单的依赖于Hadaoop配置或者输入路径，，并且键和值的类型可以根据上表简单的转换，那么对于这种情形，这种方法可以很好的应对。
+
+如果你有自定义的串行二进制文件（比如从Cassandra或HBase导入），那么你首先需要在Scala/Java方面将其转换成Pyrolite序列化器可以处理的类型。Spark为这种情况提供了一个[Converter](http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.api.python.Converter)接口。只要继承这个接口，并且在`convert`方法中实现你的转换代码就可以了。不过，一定要记得把这个类，还有访问你的`InputFormat`需要的任何依赖，打包添加到你的Spark任务的jar包中，然后把他们添加到PySpark的classpath上。
+
+对于Cassandra/HBase `InputFormat`和包含自定义转换器的`OutputFormat`的使用，请查看[Python 示例](https://github.com/apache/spark/tree/master/examples/src/main/python)和[Converted 示例](https://github.com/apache/spark/tree/master/examples/src/main/scala/org/apache/spark/examples/pythonconverters)。
+
+### # RDD Operations
+RDD支持两种类型的操作：`transformations`，从一个已存的数据集创建新的数据集；`actions`，在数据集上运行一个计算之后想driver程序返回一个结果。例如，`map`是一个`transformation`，
