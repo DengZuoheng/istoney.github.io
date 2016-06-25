@@ -125,7 +125,7 @@ PySpark SequenceFile支持在Java中载入一个RDD的键值对，将可写类�
 |IntWritable    |int|
 |FloatWritable  |float|
 |DoubleWritable |float|
-|BooleanWritable    |bool|
+|BooleanWritable |bool|
 |BytesWritable  |bytearray|
 |NullWritable   |None|
 |MapWritable    |dict|
@@ -164,4 +164,10 @@ $ SPARK_CLASSPATH=/path/to/elasticsearch-hadoop.jar ./bin/pyspark
 对于Cassandra/HBase `InputFormat`和包含自定义转换器的`OutputFormat`的使用，请查看[Python 示例](https://github.com/apache/spark/tree/master/examples/src/main/python)和[Converted 示例](https://github.com/apache/spark/tree/master/examples/src/main/scala/org/apache/spark/examples/pythonconverters)。
 
 ### # RDD Operations
-RDD支持两种类型的操作：`transformations`，从一个已存的数据集创建新的数据集；`actions`，在数据集上运行一个计算之后想driver程序返回一个结果。例如，`map`是一个`transformation`，
+RDD支持两种类型的操作：转化（`transformations`），从一个已存的数据集创建新的数据集；动作（`actions`），在数据集上运行一个计算之后想driver程序返回一个结果。例如，`map`是一个转化，它将所有数据集元素传入一个函数，并生成一个新RDD表示所有的结果。另一方面，`reduce`是一个动作，它通过一些函数收集所有RDD的元素，然后将最终结果返回给driver程序（尽管还有一个并行的`reduceByKey`操作是返回值是分布式数据集）。
+
+Spark中的所有转化都是懒惰的（lazy），即所有计算并不会被立即执行，而是记录下载基础数据集（例如文件）上执行的转化，只有当一个动作被调用，并且需要有一个结果返回给driver程序时这些转化才会执行。这样的设计使得Spark更加高效，例如，当我们发现一个通过`map`创建的数据集将会执行`reduce`操作，这时只需要返回`reduce`的结果，而不需要将`map`计算得到的大数据集返回。
+
+默认情况下，每一个转化的RDD都会在执行动作是重新计算。但是，你可以使用`persist`(或`cache`)方法在内存中持久化（persist）一个RDD，这时，Spark就会在集群中保留这些元素，以便下次查询是可以快速访问。另外，还支持在硬盘上持久化RDD，或者在多个节点上保存副本。
+
+#### # Basics
