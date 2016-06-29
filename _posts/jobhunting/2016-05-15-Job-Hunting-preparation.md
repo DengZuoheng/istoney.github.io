@@ -12,8 +12,11 @@ tags: [Job]
 
 ## Algorithm Practice
 - LeetCode
+- LintCode
 - 剑指Offer
 - ITInt5
+- Algorithm Essentials [link](https://www.gitbook.com/book/soulmachine/algorithm-essentials/details)
+- 题目归纳总结 [link]()
 
 ## Interview Problems
 - CareerCup Interview Quetions [link](https://www.careercup.com/page)
