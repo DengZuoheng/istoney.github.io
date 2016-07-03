@@ -7,7 +7,9 @@ tags: [Job]
 {% include JB/setup %}
 
 ## # 数组
+
 ### # 数组求和
+
 LeetCode #1 - Two Sum `Easy`
 
 > 给定整数数组，返回和为目标值的两个数的下标，结果唯一.
@@ -35,12 +37,14 @@ LeetCode #18 - 4Sum `Medium`
 2. 首先计算所有两个数的和，存入Hash表，替换twoSum计算, 复杂度\\( O(n^2) \\).
 
 `类型总结`:
+
 - 求k个数的和等于target，首先对数组排序；
 - 若k为2，则采用双指针夹逼，若k大于2，则遍历元素，将其转化为k-1；
 - 注意剪枝，例如遍历时，k个连续元素和大于target，则停止遍历...
 - 可采用Hash表缓存两个数的和，替换twoSum计算；
 
 ## # 整数的表示与计算
+
 LeetCode #2 - Add Two Numbers `Medium`
 
 > 给定两个用单链表表示的非负整数，每个节点上为1个digit，倒序存储，求这两个这个整数的和。
