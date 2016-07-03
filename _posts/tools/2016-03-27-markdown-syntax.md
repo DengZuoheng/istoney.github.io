@@ -45,3 +45,16 @@ tags: [markdwon, 语法]
 - 用\\来转义，表示文本中的markdown符号
 - 可以在文本种直接使用html标签，但是要注意在使用的时候，前后加上空行
 - 文本前后各加一个符号*，表示斜体
+
+### # 表格
+> | Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
+
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
