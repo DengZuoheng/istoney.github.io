@@ -40,11 +40,13 @@ code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inher
 数学公式插入格式为：
 
 段间公式：
+
 > \`\[
 > LaTax 公式内容
 > \]`
 
 行内公式：
+
 > \`\( LaTax 公式内容 \)`
 
 将数学公式置于反引号之内，是因为反引号用于代码控制，使输入的代码不受Markdown语法干扰而原样输出，这样 MathJax 即可正确渲染解析这些公式。
