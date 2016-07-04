@@ -299,7 +299,7 @@ div.content div#page-index {
 .zocial.rss:focus,
 .zocial.rss:hover {
   color:#fb9d3a !important;
-}  
+}
 
 /* Layout */
 /* line 2, ../_sass/_responsive.scss */
@@ -409,3 +409,5 @@ div.sidebar section img.icon {
   -o-border-radius: 5px;
   border-radius: 5px;
 }
+
+code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}

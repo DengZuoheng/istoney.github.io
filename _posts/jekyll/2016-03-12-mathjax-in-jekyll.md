@@ -12,6 +12,7 @@ tags: [jekyll, mathjax]
 
 ### 配置并链接MathJax库
 在`<head>`中添加javascript引用：
+
 ```js
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
@@ -31,6 +32,7 @@ tags: [jekyll, mathjax]
 ```
 
 在style.css中添加`has-jax`类，方便进行样式控制：
+
 ```css
 code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
 ```
