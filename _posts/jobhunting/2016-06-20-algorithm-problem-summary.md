@@ -8,35 +8,44 @@ tags: [Job]
 
 ## # 数组
 
-### 数组求和
+### # 数组求和
 
-### LeetCode #1 - Two Sum `Easy`
+**LeetCode #1 - Two Sum `Easy`**
+
 给定整数数组，返回和为目标值的两个数的下标，结果唯一.
 
 Solution:
+
 1. 排序后双指针夹逼，因为结果为下标，排序时需要将下标跟随值异同排序，复杂度\\( O(nlogn) \\)；
 2. Hash表记录每个数及下标，遍历查找，复杂度\\( O(n) \\).
 
-### LeetCode #15 - 3Sum `Medium`
+**LeetCode #15 - 3Sum `Medium`**
+
 给定整数数组，返回所有和为0的三元组，不得重复.
 
 Solution:
+
 1. 对数组排序，然后从头遍历数组选取第一个数，再从第一个数之后的范围内选取另外两个数；**第一个数<=0,可进行剪枝**，且遇到相同数只计算一次。复杂度\\( O(n^2) \\).
 
-### LeetCode #16 - 3Sum Closest `Medium`
+**LeetCode #16 - 3Sum Closest `Medium`**
+
 给定一个数组和一个目标值target，找出和与target最接近的三个数，将和返回。
 
 Solution:
+
 1. 同3Sum，先排序，遍历选取第一个数，然后双指针夹逼计算twoSum.
 
-### LeetCode #18 - 4Sum `Medium`
+**LeetCode #18 - 4Sum `Medium`**
+
 给定一个整数数组和目标值target，找出所有和为target的四元组。
 
 Solution:
+
 1. 类似3Sum，排序后遍历选取第一个数，然后从第一个数后再遍历选取第二个数，然后再第二个数之后的范围内就算twoSum. 计算时注意剪枝, 复杂度\\( O(n^3) \\).
 2. 首先计算所有两个数的和，存入Hash表，替换twoSum计算, 复杂度\\( O(n^2) \\).
 
-### `类型总结`
+**`类型总结`**
+
 - 求k个数的和等于target，首先对数组排序；
 - 若k为2，则采用双指针夹逼，若k大于2，则遍历元素，将其转化为k-1；
 - 注意剪枝，例如遍历时，k个连续元素和大于target，则停止遍历...
@@ -44,14 +53,18 @@ Solution:
 
 ## # 整数的表示与计算
 
-### LeetCode #2 - Add Two Numbers `Medium`
+**LeetCode #2 - Add Two Numbers `Medium`**
+
 给定两个用单链表表示的非负整数，每个节点上为1个digit，倒序存储，求这两个这个整数的和。
 
 Solution:
+
 1. 同步遍历链表相加，用一个变量记录进位，复杂度\\( O(m+n) \\).
 
-### LeetCode #67 - Add Binary `Easy`
+**LeetCode #67 - Add Binary `Easy`**
+
 给定两个二进制字符串，计算其二进制和，仍以字符串形式返回。
 
 Solution:
+
 1. 遍历字符串相加，用一个变量记录进位；注意字符串顺序与数字顺序相反。
