@@ -53,7 +53,7 @@ Solution:
 
 ## 整数的表示与计算
 
-**Plus One** `leetcode` `Easy`
+**Plus One `leetcode` `Easy`**
 
 给定一个用digits数组表示的整数，高位数字在数组投头部，求该整数加一的结果。
 
@@ -89,7 +89,7 @@ Solution:
 
 **Sum of Two Integer** `leetcode` `Easy`
 
-不使用+和-计算符，计算两个整数的和。
+不使用`+`和`-`计算符，计算两个整数的和。
 
 Solution：
 
