@@ -44,11 +44,13 @@ a{color:#0069d6;text-decoration:none;line-height:inherit;font-weight:inherit;}a:
 .span7{width:400px;}
 .span8{width:460px;}
 .span9{width:520px;}
-.span10{width:580px;}
+/*.span10{width:580px;} origin setting */
+.span10{width:660px;}
 .span11{width:640px;}
 .span12{width:700px;}
 .span13{width:760px;}
-.span14{width:820px;}
+/* .span14{width:820px;} origin setting */
+.span14{width:900px;}
 .span15{width:880px;}
 .span16{width:940px;}
 .span17{width:1000px;}
