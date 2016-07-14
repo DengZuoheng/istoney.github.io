@@ -6,9 +6,9 @@ tags: [Job]
 ---
 {% include JB/setup %}
 
-## Array
+## 1. Array
 
-### 数组求和
+### 1.1 数组求和
 
 **Two Sum** `leetcode` `Easy`
 
@@ -43,7 +43,9 @@ tags: [Job]
 - 注意剪枝，例如遍历时，k个连续元素和大于target，则停止遍历...
 - 可采用Hash表缓存两个数的和，替换twoSum计算；
 
-## 整数的表示与计算
+---
+
+## 2. 整数的表示与计算
 
 **Plus One `leetcode` `Easy`**
 
@@ -69,7 +71,9 @@ tags: [Job]
 
 1. 双重循环计算乘法，注意进位；复杂度\\( O(m*n) \\)。
 
-## 二进制计算
+---
+
+## 3. 二进制计算
 
 **Sum of Two Integer** `leetcode` `Easy`
 
