@@ -9,10 +9,11 @@ tags: [Job]
 ### Tables and Pieces
 
 > There is a 6×6 table. Place a number of pieces on the table to meet the following conditions:
-- There is to be either zero or one piece in each square of the table.
-- Each column in the table is to have exactly three pieces.
-- Each row in the table is to have exactly three pieces.
 
+> - There is to be either zero or one piece in each square of the table.
+> - Each column in the table is to have exactly three pieces.
+> - Each row in the table is to have exactly three pieces.
+>
 > There may already be pieces in some of the squares of the table. When si,j is 'o', there is already a piece in the square at the jth column of the ith row. When that is not the case, si,j is '.' and there is no piece in that square. Find out the number of ways to place pieces in the empty squares, which satisfies the conditions. Two ways are considered different if they have at least one square which contains a piece in one way and doesn't contain a piece in the other way.
 
 #### Constrains
@@ -21,9 +22,9 @@ tags: [Job]
 #### Input
 Inputs are provided from standard inputs in the following form.
 
-> s1,1 … s1,6 <br>
-: <br>
-s6,1 … s6,6
+> s1,1 … s1,6<br>
+> :<br>
+> s6,1 … s6,6
 
 #### Output
 Output the number of ways that pieces can be placed on the empty squares to satisfy the conditions.
