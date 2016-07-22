@@ -199,4 +199,210 @@ public class SomeTest
 
 ## Recoding results for and expectation
 
-对于一个返回值是非void类型的方法，可以通过向`result`变量赋值的方式记录其返回值。当在
+对于一个返回值是非void类型的方法，可以通过向`result`变量赋值的方式记录其返回值。当这个方法在replay阶段被调用的时候，这个指定的返回值就会被返回给调用者。该`result`赋值语句应该紧跟在`expectation`调用的后面，而不是在`expectation`块之后。
+
+如果这个测试需要在调用该方法时抛出一个**exception**或者**error**，你仍然可以使用`result`变量：简单的将需要抛出的示例赋值给它即可。注意，这种抛出exceptions/errors的记录对于mock方法（任意返回类型）和mock构造函数都是适用的。
+
+在同一个expectation中，可以记录多个连续的result（返回值或抛出throwable），简单的在一行中多次给result变量赋值即可。在同一个expectation中，多个返回值或exception/error可以自由的混合。在需要记录多个连续返回值的境况中，可以一次性调用`results(Object...)`方法。同时，单独一条对result变量的赋值也可以达到这种效果，只要赋予的值是一个包含连续返回值的list或者array。
+
+下面的测试示例为mock class **DependencyAbc**的mock方法记录了上述两种类型的result，它们会在被**UnitUnderTest**调用时用到。被测试的代码实现如下：
+
+```java
+public class UnitUnderTest
+{
+(1)private final DependencyAbc abc = new DependencyAbc();
+
+   public void doSomething()
+   {
+(2)   int n = abc.intReturningMethod();
+
+      for (int i = 0; i < n; i++) {
+         String s;
+
+         try {
+(3)         s = abc.stringReturningMethod();
+         }
+         catch (SomeCheckedException e) {
+            // somehow handle the exception
+         }
+
+         // do some other stuff
+      }
+   }
+}
+```
+
+对于`doSomething()`方法，一个可能的测试是在成功的执行几次后抛出一个`SomeCheckedException`。假如我们希望（无论什么原因）完整的记录这两个class交互的expectation，我们可能会按照如下编写这个测试。（通常，在一个给定测试中，并没有必要，也不重要，去记录mock方法和mock构造函数的所有调用，我们会在后面解决这个问题。）
+
+```java
+@Test
+public void doSomethingHandlesSomeCheckedException(@Mocked final DependencyAbc abc) throws Exception
+{
+   new Expectations() {{
+(1)   new DependencyAbc();
+
+(2)   abc.intReturningMethod(); result = 3;
+
+(3)   abc.stringReturningMethod();
+      returns("str1", "str2");
+      result = new SomeCheckedException();
+   }};
+
+   new UnitUnderTest().doSomething();
+}
+```
+
+这个测试记录了三种不同的expectation。第一个，表示对`DependencyAbc()`的调用，仅仅表示在被测试代码中这个依赖项会被初始化，通过无参数的构造函数；不需要指定返回值，出了偶然的exception/error会被抛出（构造函数的返回值类型是void，因此没有必要为它们记录返回的结果）。第二个expectation为`intReturningMethod()`记录了调用时的返回结果为3。第三个为`stringReturningMethod()`记录了三个连续的返回值，其中最后一个result是一个可能的exception，这样就可以达到测试的目的了（注意，只有这个exception不会继续被向外传播时，这个测试才算通过）。
+
+---
+
+## Matching invocations to specific instances
+
+在前面，我们解释说在一个mock实例上的expectation记录，例如"abc.someMethd();"将会匹配任何mock class **DependencyAbc**的实例中的DependencyAbc#someMethod()的调用。在多数情况下，测试代码只会使用依赖项的一个实例，无论这个实例是被传入到测试代码中或者在测试代码中被创建，所以这不会有什么影响，我们可以将其忽略。但是，如果我们需要验证测试代码中多个实例其中特定的一个实例上调用时该怎么办？同时，如果只有mock class的一个或几个实例应该被mock，而其余实例需要保持不变时该怎么办？（当使用Java标注库或其他第三方库的class时，情景2会经常出现。）JMockit提供一种mock标注，`@Injectable`，它只mock指定类型的一个实例，而其他实例不受影响。另外，JMockit还提供几种方式来约束`@Mocked`实例与expectation的匹配，当然，它还是会mock一个class的所有实例。
+
+### Injectable mocked instances
+
+假设我们需要测试使用了一个给定class的多个实例的代码，而我们希望mock这些实例的某一部分。如果被mock实例可以传递，或者注入到被测试代码中，那么我们可以为它声明一个`@Injectable`的mock成员或mock参数。这个被JMockit创建的`Injectable`实例将会是一个独有的mock实例。任何其他的，除非是从一个单独的mock成员/参数获得的，实例仍将是一个普通的，非mock的实例。
+
+同时注意到，因为一个injectable mock实例只会影响自身的行为，静态方法和构造函数也不会被mock。毕竟，一个*static*方法并不是与任何类的实例绑定的，而构造函数仅仅与新创建的（因此是不同的）实例绑定。
+
+```java
+public final class ConcatenatingInputStream extends InputStream
+{
+   private final Queue<InputStream> sequentialInputs;
+   private InputStream currentInput;
+
+   public ConcatenatingInputStream(InputStream... sequentialInputs)
+   {
+      this.sequentialInputs = new LinkedList<InputStream>(Arrays.asList(sequentialInputs));
+      currentInput = this.sequentialInputs.poll();
+   }
+
+   @Override
+   public int read() throws IOException
+   {
+      if (currentInput == null) return -1;
+
+      int nextByte = currentInput.read();
+
+      if (nextByte >= 0) {
+         return nextByte;
+      }
+
+      currentInput = sequentialInputs.poll();
+      return read();
+   }
+}
+```
+
+这个class可以简单使用**ByteArrayInputStream**对象作为输入来测试，不使用mock。但是，让我们假设我们希望确保*InputStrean#read()*方法在构造函数传入的任何*input stream*上都正常工作。如下测试将会测试这一点。
+
+```java
+@Test
+public void concatenateInputStreams(
+   @Injectable final InputStream input1, @Injectable final InputStream input2)
+   throws Exception
+{
+   new Expectations() {{
+      input1.read(); returns(1, 2, -1);
+      input2.read(); returns(3, -1);
+   }};
+
+   InputStream concatenatedInput = new ConcatenatingInputStream(input1, input2);
+   byte[] buf = new byte[3];
+   concatenatedInput.read(buf);
+
+   assertArrayEquals(new byte[] {1, 2, 3}, buf);
+}
+```
+
+注意，这里`@Injectable`的使用是非常必要的，因此测试的class继承了被mock的class，而测试**ConcatenatingInputStream**时调用的方法正是在基类**InputStream**中定义的方法。如果**InputStream**是采用普通的mock方式，那么*read(byte[])*方法将会一直被mock，无论是哪一个实例被调用。
+
+### The `onInstance(m)` constraint
+
+当使用`@Mocked`或`@Capturing`（同时在相同的成员或参数上不使用`@Injectable`）时，我们仍然可以将replay的某个特定mock实例的调用与expectation记录进行匹配。为了做到这点，我们在记录expectation的时候，使用`onInstance(mockObject)`方法，如下所示。
+
+```java
+@Test
+public void matchOnMockInstance(@Mocked final Collaborator mock)
+{
+   new Expectations() {{
+      onInstance(mock).getValue(); result = 12;
+   }};
+
+   // Exercise code under test with mocked instance passed from the test:
+   int result = mock.getValue();
+   assertEquals(12, result);
+
+   // If another instance is created inside code under test...
+   Collaborator another = new Collaborator();
+
+   // ...we won't get the recorded result, but the default one:
+   assertEquals(0, another.getValue());
+}
+```
+上面的例子中，测试代码只有在与记录中方法调用的同一个实例上调用`getValue()`才可以通过。当被测试代码要在同一类型的两个或多个不同实例上进行调用，并且测试希望在每一个实例上验证调用的时候，这种方式特别有用。
+
+在测试代码以不同的方式使用到同一类型的多个实例时，为了避免在每一个expectation上使用onInstance(m)，JMockit基于作用范围内mock类型的集合自动指出需要使用"onIntsance"的地方。特别地，在给定测试中对于同一类型而言，在其作用范围内，无论存在两个或多个mock成员/参数，在实例上对方法的调用会一直和这些实例的expectation记录匹配。因此，在这种通用场景下，没有必要显式的使用*onInstance(m)*方法。
+
+### Instances created with a given constructor
+
+特别是对于会由被测试代码生成的未来实例，JMockit提供几种机制使我们可以匹配调用。这些机制都要求在expectation中记录对mock class的指定构造函数（"new"语句）的调用。
+
+第一种机制需要在记录实例方法的expectation时，包含一个简单的从被记录的构造函数获取实例的expectation。如下例所示。
+
+```java
+@Test
+public void newCollaboratorsWithDifferentBehaviors(@Mocked Collaborator anyCollaborator)
+{
+   // Record different behaviors for each set of instances:
+   new Expectations() {{
+      // One set, instances created with "a value":
+      Collaborator col1 = new Collaborator("a value");
+      col1.doSomething(anyInt); result = 123;
+
+      // Another set, instances created with "another value":
+      Collaborator col2 = new Collaborator("another value");
+      col2.doSomething(anyInt); result = new InvalidStateException();
+   }};
+
+   // Code under test:
+   new Collaborator("a value").doSomething(5); // will return 123
+   ...
+   new Collaborator("another value").doSomething(0); // will throw the exception
+   ...
+}
+```
+
+在上述测试中，我们用`@Mocked`为期望的class声明了一个mock成员或参数。这个mock成员/参数并没有在记录expectation的时候使用；而是使用在“实例化记录”（instantiatiion recordings）中创建的实例来记录实例方法的预期行为。使用匹配的构造函数生成的未来实例，会和记录的实例对应。同时注意，这不是时一一对应关系，而是多对一的关系，从多个可能的未来实例对应到记录的expectation中的一个实例。
+
+第二种机制让我们为那些匹配构造函数的未来实例，记录一个替代实例。采用这种方法，我们可以这样重写上述测试。
+
+```java
+@Test
+public void newCollaboratorsWithDifferentBehaviors(
+   @Mocked final Collaborator col1, @Mocked final Collaborator col2)
+{
+   new Expectations() {{
+      // Map separate sets of future instances to separate mock parameters:
+      new Collaborator("a value"); result = col1;
+      new Collaborator("another value"); result = col2;
+
+      // Record different behaviors for each set of instances:
+      col1.doSomething(anyInt); result = 123;
+      col2.doSomething(anyInt); result = new InvalidStateException();
+   }};
+
+   // Code under test:
+   new Collaborator("a value").doSomething(5); // will return 123
+   ...
+   new Collaborator("another value").doSomething(0); // will throw the exception
+   ...
+}
+```
+
+该测试的上述两个版本是等价的。当结合使用部分（partial）mock时，第二种方式还可以允许一个真实实例（非mock）来作为替换。
+
+---
+
+## Flexible matching of argumentvalues
