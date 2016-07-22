@@ -7,6 +7,7 @@ tags: [test, jmockit]
 {% include JB/setup %}
 
 ---
+
 ## Mocked types and instances
 
 在测试中，依赖项的被调用的方法和构造函数是mock的目标。Mock给我们提供一种使我们可以将测试代码与其依赖分离的机制。在一个或多个测试中我们通过声明适当的mock成员以及/或者mock参数来指明将会被mock的依赖项。Mock成员会被声明为测试类的标注实例，而mock参数将会被声明为测试函数中的标注参数。被mock的依赖项的类型就是mock成员或mock参数的类型。这些类型可以是interface, class, 包括abstract class和final class, 标注，或者enum。
@@ -45,4 +46,64 @@ public void doBusinessOperationXyz(@Mocked final AnotherDependency anotherMock)
 
 在执行测试方法时，对于测试方法中声明的mock参数，JMockit将会自动生成一个指定类型的对象，并传递给JUnit/TestNG测试引擎。因此，参数的值绝不会是`null`。对于一个mock成员，如果它不是`final`的，JMockit将会自动生成一个对应类型的实例，并将其赋值给该成员。
 
-这里有几种不同的标注用来声明mock成员和mock参数，其各自拥有不同的默认行为，从而满足不同测试的需求。`@Mocked`是中心标注，它有几种属性可选；`@Injectable`是另外一个mock标注，它只能mock某一个mock实例的方法；
+这里有几种不同的标注用来声明mock成员和mock参数，其各自拥有不同的默认行为，从而满足不同测试的需求。`@Mocked`是中心标注，它有几种适用与不同场景的属性可选；`@Injectable`是另外一种mock标注，它只能mock某一个mock实例的方法；`@Capturing`又是另外一种标注，它扩展了mock，使得一个class去实现一个mock接口，或者让一个子类去继承一个mock class。当在一个成员变量或参数上使用`@Injectable`和`@Capturing`时，`@Mock`是被隐含在其中的，因此不需要（不是不可以）再次使用`@Mock`。
+
+JMockit创建的mock实例可以在测试代码中正常使用，或者在测试代码中传递，或者不使用。和其他的mock API不同的是，这些mock对象并不一定是测试代码在调用方法是用到的那些。默认情况下（例如，在不使用`@Injectable`时）,JMockit并不关心测试代码是在哪一个mock实例上调用方法。这样，在测试代码中使用`new`调用构造函数时，mock实例的创建就是透明的。仅仅要求被初始化的class属于某个mock类型，仅此而已。
+
+---
+
+## Expectations
+
+一个`expectation`是一系列与测试相关的指定的mock方法/构造函数的集合。一个`expectation`可能包含多次对同一方法或构造函数的调用，但是并不需要包含测试执行中所有对该方法的调用。一次函数调用是否属于一个给定`expectation`，不仅仅取决于该方法/构造函数的签名，还包括一些运行时的因素，例如方法是在哪一个实例上调用的，参数值，以及/或者**调用次数是否已经匹配**。因此，对于一个给定`expectation`，我们有几个可选的匹配约束可以设置。
+
+当调用设计到一个或多个参数时，需要给每一个参数指定确切的参数值。例如，可以指定一个`String`类型参数的值为`"test string"`，这就使得`expectation`只匹配在对应参数上值为该字符串的方法调用。我们在后面可以看到，除了给出一个特定参数值外，我们还可以通过指定一个更加宽松的约束来匹配所有不同参数的集合。
+
+下面的例子展示了一个`Dependency#someMethod(int, String)`的`expectation`，它将匹配参数值与指定值一致的该方法的调用。注意到，一个`expectation`它本身是通过对mock方法的一次独立的调用来定义的。该过程并不涉及其他特殊的API（像其他mock API做的那样^_^）。然而，这次调用并不是测试中真正的调用，它仅仅是用来定义`expectation`。
+
+```java
+@Test
+public void doBusinessOperationXyz(@Mocked final Dependency mockInstance)
+{
+   ...
+   new Expectations() {{
+      ...
+      // An expectation for an instance method:
+      mockInstance.someMethod(1, "test"); result = "mocked";
+      ...
+   }};
+
+   // A call to code under test occurs here, leading to mock invocations
+   // that may or may not match specified expectations.
+}
+```
+
+在我们理解了`record`、`replay`和`verify`的调用之间的区别之后我们会了解更多关于`expectation`的东西。
+
+---
+
+## The record-replay-verify model
+
+任何一个开发测试都可以分成至少三个独立的执行阶段。这些阶段顺序执行，一次一个，如下所示。
+
+```java
+@Test
+public void someTestMethod()
+{
+   // 1. Preparation: whatever is required before the code under test can be exercised.
+   ...
+   // 2. The code under test is exercised, usually by calling a public method.
+   ...
+   // 3. Verification: whatever needs to be checked to make sure the code exercised by
+   //    the test did its job.
+   ...
+}
+```
+
+首先，我们有一个准备阶段，在这里测试需要的对象和数据项被创建，或从其他地方获得。然后执行被测试代码。最后，将被测试代码的执行结果和预期结果进行对比。
+
+这种三阶段模型被称为`Arrange`、`Act`和`Assert`语法，或者简称为`AAA`。或者其他称法，但是意义相同。
+
+在基于行为的（`behavior-based`）的测试中（即使用mock类型，以及其对应mock实例），我们可以找到如下三个阶段，她们和上述描述的传统测试的三个阶段紧密相关：
+
+1. **record**阶段，方法调用被记录的阶段。这发生在测试准备阶段，在被测试的方法调用执行之前。
+2. **replay**阶段，在该阶段被测试代码被执行，以及我们感兴趣的mock调用。之前被mock的方法/构造函数的调用将在这里`replay`。
