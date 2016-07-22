@@ -106,4 +106,97 @@ public void someTestMethod()
 在基于行为的（`behavior-based`）的测试中（即使用mock类型，以及其对应mock实例），我们可以找到如下三个阶段，她们和上述描述的传统测试的三个阶段紧密相关：
 
 1. **record**阶段，方法调用被记录的阶段。这发生在测试准备阶段，在被测试的方法调用执行之前。
-2. **replay**阶段，在该阶段被测试代码被执行，以及我们感兴趣的mock调用。之前被mock的方法/构造函数的调用将在这里`replay`。
+2. **replay**阶段，在该阶段被测试代码被执行，以及我们感兴趣的mock调用。之前被mock的方法/构造函数的调用将在这里`replay`。通常在录制的调用和播放之间并没有一一对应的关系。
+3. **verify**阶段，验证调用按照预期的发生。该阶段发生在测试验证期间，在被测试代码执行之后。
+
+采用JMockit写出的基于行为的测试将按照如下的模板：
+
+```java
+import mockit.*;
+... other imports ...
+
+public class SomeTest
+{
+   // Zero or more "mock fields" common to all test methods in the class:
+   @Mocked Collaborator mockCollaborator;
+   @Mocked AnotherDependency anotherDependency;
+   ...
+
+   @Test
+   public void testWithRecordAndReplayOnly(mock parameters)
+   {
+      // Preparation code not specific to JMockit, if any.
+
+      new Expectations() {{ // an "expectation block"
+         // One or more invocations to mocked types, causing expectations to be recorded.
+         // Invocations to non-mocked types are also allowed anywhere inside this block
+         // (though not recommended).
+      }};
+
+      // Unit under test is exercised.
+
+      // Verification code (JUnit/TestNG assertions), if any.
+   }
+
+   @Test
+   public void testWithReplayAndVerifyOnly(mock parameters)
+   {
+      // Preparation code not specific to JMockit, if any.
+
+      // Unit under test is exercised.
+
+      new Verifications() {{ // a "verification block"
+         // One or more invocations to mocked types, causing expectations to be verified.
+         // Invocations to non-mocked types are also allowed anywhere inside this block
+         // (though not recommended).
+      }};
+
+      // Additional verification code, if any, either here or before the verification block.
+   }
+
+   @Test
+   public void testWithBothRecordAndVerify(mock parameters)
+   {
+      // Preparation code not specific to JMockit, if any.
+
+      new Expectations() {{
+         // One or more invocations to mocked types, causing expectations to be recorded.
+      }};
+
+      // Unit under test is exercised.
+
+      new VerificationsInOrder() {{ // an ordered verification block
+         // One or more invocations to mocked types, causing expectations to be verified
+         // in the specified order.
+      }};
+
+      // Additional verification code, if any, either here or before the verification block.
+   }
+}
+```
+
+上述模板还有一些变形，但其精髓是expectation块属于record阶段，并且出现在被测试代码执行之前，而verification块属于verify阶段。一个测试方法可以包含任意数目的expectation块和verification块。
+
+---
+
+## Regular versus strict expectations
+
+在`new Expectation() {...}`中记录的expectations是普通的。这意味着这些调用预期会在replay阶段至少出现一次；也可以以与其他expectations不同的相对顺序出现多次。此外，不匹配任何记录的expectation的调用允许以任意顺序出现任意多次。如果，没有调用与给定expectation`中的记录匹配，那么在测试的最后会有一个*missing invocation*的错误会被抛出，导致测试失败（这只是默认行为，而且可以被重写）。
+
+该API还支持strict expectation的概念：在replay中只允许与记录匹配的调用执行（需要时，可以显式指明允许），调用次数（默认情况下一次）和顺序都要匹配。replay期间如果出现匹配失败的调用，将会视为*unexpected*，立即触发一个*unexpected invocation*的错误，进而导致测试失败。上述这些都可以通过`StrictExpectation`子类实现。
+
+注意到，在strict expectation中，所有在replay中出现的与expectation匹配的调用，都会被隐式的验证。任何其他不匹配的调用都会被视为*unexpected*，将导致测试失败。如果任何strict expectation中的记录缺少匹配，即在replay中没有出现调用，也会导致测试失败。
+
+我们可以在同一个测试中编写多个expectation块，一些普通的（使用`Expectation`）和一些strict的（使用`StrictExpectation`），来混合使用不同严格等级的expectation。尽管通常情况下，一个给定的mock成员或mock参数将会出现在一种类型的expectation块中。
+
+大部分测试会简单的采用“普通”的expectation。strict expectation的使用更可能是一种个人偏好。
+
+### Strict and non-strict mocks
+
+注意，我们不会指明一个给定的mock类型/实例是strict或不是。一个mock成员或参数的严格性是由它在测试的使用情况来决定的。一旦第一条strict expectation在`new StrictExpectation() {...}`块中记录，那么相关的mock类型/实例将会在整个测试中认为是strict的，否则，将会被视为不是strict的。
+
+---
+
+## Recoding results for and expectation
+
+对于一个返回值是非void类型的方法，可以通过向`result`变量赋值的方式记录其返回值。当在
