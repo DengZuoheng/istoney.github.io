@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Spark Programming Guide 编程指南 v1.6.1
-catergory: data_mining
+catergory: DataMining
 tags: [spark]
 ---
 {% include JB/setup %}
