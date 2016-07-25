@@ -54,11 +54,11 @@ JMockit创建的mock实例可以在测试代码中正常使用，或者在测试
 
 ## Expectations
 
-一个`expectation`是一系列与测试相关的指定的mock方法/构造函数的集合。一个`expectation`可能包含多次对同一方法或构造函数的调用，但是并不需要包含测试执行中所有对该方法的调用。一次函数调用是否属于一个给定`expectation`，不仅仅取决于该方法/构造函数的签名，还包括一些运行时的因素，例如方法是在哪一个实例上调用的，参数值，以及/或者**调用次数是否已经匹配**。因此，对于一个给定`expectation`，我们有几个可选的匹配约束可以设置。
+一个expectation是一系列与测试相关的指定的mock方法/构造函数的集合。一个expectation可能包含多次对同一方法或构造函数的调用，但是并不需要包含测试执行中所有对该方法的调用。一次函数调用是否属于一个给定expectation，不仅仅取决于该方法/构造函数的签名，还包括一些运行时的因素，例如方法是在哪一个实例上调用的，参数值，以及/或者**调用次数是否已经匹配**。因此，对于一个给定expectation，我们有几个可选的匹配约束可以设置。
 
-当调用设计到一个或多个参数时，需要给每一个参数指定确切的参数值。例如，可以指定一个`String`类型参数的值为`"test string"`，这就使得`expectation`只匹配在对应参数上值为该字符串的方法调用。我们在后面可以看到，除了给出一个特定参数值外，我们还可以通过指定一个更加宽松的约束来匹配所有不同参数的集合。
+当调用设计到一个或多个参数时，需要给每一个参数指定确切的参数值。例如，可以指定一个`String`类型参数的值为`"test string"`，这就使得expectation只匹配在对应参数上值为该字符串的方法调用。我们在后面可以看到，除了给出一个特定参数值外，我们还可以通过指定一个更加宽松的约束来匹配所有不同参数的集合。
 
-下面的例子展示了一个`Dependency#someMethod(int, String)`的`expectation`，它将匹配参数值与指定值一致的该方法的调用。注意到，一个`expectation`它本身是通过对mock方法的一次独立的调用来定义的。该过程并不涉及其他特殊的API（像其他mock API做的那样^_^）。然而，这次调用并不是测试中真正的调用，它仅仅是用来定义`expectation`。
+下面的例子展示了一个`Dependency#someMethod(int, String)`的expectation，它将匹配参数值与指定值一致的该方法的调用。注意到，一个expectation它本身是通过对mock方法的一次独立的调用来定义的。该过程并不涉及其他特殊的API（像其他mock API做的那样^_^）。然而，这次调用并不是测试中真正的调用，它仅仅是用来定义expectation。
 
 ```java
 @Test
@@ -77,7 +77,7 @@ public void doBusinessOperationXyz(@Mocked final Dependency mockInstance)
 }
 ```
 
-在我们理解了`record`、`replay`和`verify`的调用之间的区别之后我们会了解更多关于`expectation`的东西。
+在我们理解了`record`、`replay`和`verify`的调用之间的区别之后我们会了解更多关于expectation的东西。
 
 ---
 
@@ -101,12 +101,12 @@ public void someTestMethod()
 
 首先，我们有一个准备阶段，在这里测试需要的对象和数据项被创建，或从其他地方获得。然后执行被测试代码。最后，将被测试代码的执行结果和预期结果进行对比。
 
-这种三阶段模型被称为`Arrange`、`Act`和`Assert`语法，或者简称为`AAA`。或者其他称法，但是意义相同。
+这种三阶段模型被称为**Arrange**、**Act**和**Assert**语法，或者简称为**AAA**。或者其他称法，但是意义相同。
 
-在基于行为的（`behavior-based`）的测试中（即使用mock类型，以及其对应mock实例），我们可以找到如下三个阶段，她们和上述描述的传统测试的三个阶段紧密相关：
+在基于行为的（behavior-based）的测试中（即使用mock类型，以及其对应mock实例），我们可以找到如下三个阶段，她们和上述描述的传统测试的三个阶段紧密相关：
 
 1. **record**阶段，方法调用被记录的阶段。这发生在测试准备阶段，在被测试的方法调用执行之前。
-2. **replay**阶段，在该阶段被测试代码被执行，以及我们感兴趣的mock调用。之前被mock的方法/构造函数的调用将在这里`replay`。通常在录制的调用和播放之间并没有一一对应的关系。
+2. **replay**阶段，在该阶段被测试代码被执行，以及我们感兴趣的mock调用。之前被mock的方法/构造函数的调用将在这里replay。通常在录制的调用和播放之间并没有一一对应的关系。
 3. **verify**阶段，验证调用按照预期的发生。该阶段发生在测试验证期间，在被测试代码执行之后。
 
 采用JMockit写出的基于行为的测试将按照如下的模板：
@@ -183,11 +183,11 @@ public class SomeTest
 
 在`new Expectation() {...}`中记录的expectations是普通的。这意味着这些调用预期会在replay阶段至少出现一次；也可以以与其他expectations不同的相对顺序出现多次。此外，不匹配任何记录的expectation的调用允许以任意顺序出现任意多次。如果，没有调用与给定expectation`中的记录匹配，那么在测试的最后会有一个*missing invocation*的错误会被抛出，导致测试失败（这只是默认行为，而且可以被重写）。
 
-该API还支持strict expectation的概念：在replay中只允许与记录匹配的调用执行（需要时，可以显式指明允许），调用次数（默认情况下一次）和顺序都要匹配。replay期间如果出现匹配失败的调用，将会视为*unexpected*，立即触发一个*unexpected invocation*的错误，进而导致测试失败。上述这些都可以通过`StrictExpectation`子类实现。
+该API还支持strict expectation的概念：在replay中只允许与记录匹配的调用执行（需要时，可以显式指明允许），调用次数（默认情况下一次）和顺序都要匹配。replay期间如果出现匹配失败的调用，将会视为*unexpected*，立即触发一个*unexpected invocation*的错误，进而导致测试失败。上述这些都可以通过**StrictExpectation**子类实现。
 
 注意到，在strict expectation中，所有在replay中出现的与expectation匹配的调用，都会被隐式的验证。任何其他不匹配的调用都会被视为*unexpected*，将导致测试失败。如果任何strict expectation中的记录缺少匹配，即在replay中没有出现调用，也会导致测试失败。
 
-我们可以在同一个测试中编写多个expectation块，一些普通的（使用`Expectation`）和一些strict的（使用`StrictExpectation`），来混合使用不同严格等级的expectation。尽管通常情况下，一个给定的mock成员或mock参数将会出现在一种类型的expectation块中。
+我们可以在同一个测试中编写多个expectation块，一些普通的（使用**Expectation**）和一些strict的（使用**StrictExpectation**），来混合使用不同严格等级的expectation。尽管通常情况下，一个给定的mock成员或mock参数将会出现在一种类型的expectation块中。
 
 大部分测试会简单的采用“普通”的expectation。strict expectation的使用更可能是一种个人偏好。
 
@@ -199,9 +199,9 @@ public class SomeTest
 
 ## Recoding results for and expectation
 
-对于一个返回值是非void类型的方法，可以通过向`result`变量赋值的方式记录其返回值。当这个方法在replay阶段被调用的时候，这个指定的返回值就会被返回给调用者。该`result`赋值语句应该紧跟在`expectation`调用的后面，而不是在`expectation`块之后。
+对于一个返回值是非void类型的方法，可以通过向`result`变量赋值的方式记录其返回值。当这个方法在replay阶段被调用的时候，这个指定的返回值就会被返回给调用者。该result赋值语句应该紧跟在expectation调用的后面，而不是在expectation块之后。
 
-如果这个测试需要在调用该方法时抛出一个**exception**或者**error**，你仍然可以使用`result`变量：简单的将需要抛出的示例赋值给它即可。注意，这种抛出exceptions/errors的记录对于mock方法（任意返回类型）和mock构造函数都是适用的。
+如果这个测试需要在调用该方法时抛出一个**exception**或者**error**，你仍然可以使用result变量：简单的将需要抛出的示例赋值给它即可。注意，这种抛出exceptions/errors的记录对于mock方法（任意返回类型）和mock构造函数都是适用的。
 
 在同一个expectation中，可以记录多个连续的result（返回值或抛出throwable），简单的在一行中多次给result变量赋值即可。在同一个expectation中，多个返回值或exception/error可以自由的混合。在需要记录多个连续返回值的境况中，可以一次性调用`results(Object...)`方法。同时，单独一条对result变量的赋值也可以达到这种效果，只要赋予的值是一个包含连续返回值的list或者array。
 
@@ -232,7 +232,7 @@ public class UnitUnderTest
 }
 ```
 
-对于`doSomething()`方法，一个可能的测试是在成功的执行几次后抛出一个`SomeCheckedException`。假如我们希望（无论什么原因）完整的记录这两个class交互的expectation，我们可能会按照如下编写这个测试。（通常，在一个给定测试中，并没有必要，也不重要，去记录mock方法和mock构造函数的所有调用，我们会在后面解决这个问题。）
+对于`doSomething()`方法，一个可能的测试是在成功的执行几次后抛出一个**SomeCheckedException**。假如我们希望（无论什么原因）完整的记录这两个class交互的expectation，我们可能会按照如下编写这个测试。（通常，在一个给定测试中，并没有必要，也不重要，去记录mock方法和mock构造函数的所有调用，我们会在后面解决这个问题。）
 
 ```java
 @Test
@@ -264,7 +264,7 @@ public void doSomethingHandlesSomeCheckedException(@Mocked final DependencyAbc a
 
 假设我们需要测试使用了一个给定class的多个实例的代码，而我们希望mock这些实例的某一部分。如果被mock实例可以传递，或者注入到被测试代码中，那么我们可以为它声明一个`@Injectable`的mock成员或mock参数。这个被JMockit创建的`Injectable`实例将会是一个独有的mock实例。任何其他的，除非是从一个单独的mock成员/参数获得的，实例仍将是一个普通的，非mock的实例。
 
-同时注意到，因为一个injectable mock实例只会影响自身的行为，静态方法和构造函数也不会被mock。毕竟，一个*static*方法并不是与任何类的实例绑定的，而构造函数仅仅与新创建的（因此是不同的）实例绑定。
+同时注意到，因为一个injectable mock实例只会影响自身的行为，静态方法和构造函数也不会被mock。毕竟，一个`static`方法并不是与任何类的实例绑定的，而构造函数仅仅与新创建的（因此是不同的）实例绑定。
 
 ```java
 public final class ConcatenatingInputStream extends InputStream
@@ -295,7 +295,7 @@ public final class ConcatenatingInputStream extends InputStream
 }
 ```
 
-这个class可以简单使用**ByteArrayInputStream**对象作为输入来测试，不使用mock。但是，让我们假设我们希望确保*InputStrean#read()*方法在构造函数传入的任何*input stream*上都正常工作。如下测试将会测试这一点。
+这个class可以简单使用**ByteArrayInputStream**对象作为输入来测试，不使用mock。但是，让我们假设我们希望确保`InputStrean#read()`方法在构造函数传入的任何input stream上都正常工作。如下测试将会测试这一点。
 
 ```java
 @Test
@@ -316,9 +316,9 @@ public void concatenateInputStreams(
 }
 ```
 
-注意，这里`@Injectable`的使用是非常必要的，因此测试的class继承了被mock的class，而测试**ConcatenatingInputStream**时调用的方法正是在基类**InputStream**中定义的方法。如果**InputStream**是采用普通的mock方式，那么*read(byte[])*方法将会一直被mock，无论是哪一个实例被调用。
+注意，这里`@Injectable`的使用是非常必要的，因此测试的class继承了被mock的class，而测试**ConcatenatingInputStream**时调用的方法正是在基类**InputStream**中定义的方法。如果**InputStream**是采用普通的mock方式，那么`read(byte[])`方法将会一直被mock，无论是哪一个实例被调用。
 
-### The `onInstance(m)` constraint
+### The onInstance(m) constraint
 
 当使用`@Mocked`或`@Capturing`（同时在相同的成员或参数上不使用`@Injectable`）时，我们仍然可以将replay的某个特定mock实例的调用与expectation记录进行匹配。为了做到这点，我们在记录expectation的时候，使用`onInstance(mockObject)`方法，如下所示。
 
@@ -343,7 +343,7 @@ public void matchOnMockInstance(@Mocked final Collaborator mock)
 ```
 上面的例子中，测试代码只有在与记录中方法调用的同一个实例上调用`getValue()`才可以通过。当被测试代码要在同一类型的两个或多个不同实例上进行调用，并且测试希望在每一个实例上验证调用的时候，这种方式特别有用。
 
-在测试代码以不同的方式使用到同一类型的多个实例时，为了避免在每一个expectation上使用onInstance(m)，JMockit基于作用范围内mock类型的集合自动指出需要使用"onIntsance"的地方。特别地，在给定测试中对于同一类型而言，在其作用范围内，无论存在两个或多个mock成员/参数，在实例上对方法的调用会一直和这些实例的expectation记录匹配。因此，在这种通用场景下，没有必要显式的使用*onInstance(m)*方法。
+在测试代码以不同的方式使用到同一类型的多个实例时，为了避免在每一个expectation上使用onInstance(m)，JMockit基于作用范围内mock类型的集合自动指出需要使用"onIntsance"的地方。特别地，在给定测试中对于同一类型而言，在其作用范围内，无论存在两个或多个mock成员/参数，在实例上对方法的调用会一直和这些实例的expectation记录匹配。因此，在这种通用场景下，没有必要显式的使用`onInstance(m)`方法。
 
 ### Instances created with a given constructor
 
@@ -487,9 +487,108 @@ public void someTestMethod(@Mocked final DependencyAbc abc)
 
 为了特别地验证一个参数接收`null`引用，可以使用`withNull()`匹配器。
 
+### Matching values passed through a varargs parameter
+
+有时候，我们需要在expectation中处理可变参数（varargs）的方法或构造函数。对于可变参数，普通的值传递或者使用“with”或“any”匹配器都是可以的。然而，在同一个存在可变参数的expectation中，不可以同时出现上述两种方式的参数。我们需要只用普通值参数，或者只用参数匹配器。
+
+如果匹配调用时需要让可变参数接受任意数量的值（包括0个），我们可以在expectation中为这个可变参数指定一个`(Object[]) any`的约束。
+
 ## Specifying invocation count constraints
 
+目前为止，我们已经看到出了相关联的方法和构造函数，一个expectation可以有调用结果和参数匹配器。给定被测代码后，我们可以对同一个方法或构造函数使用不同或相同的参数调用多次，但是有时候，我们需要一种办法来区分这些调用。
+
+一个方法调用和expectation匹配的次数可以通过“调用次数”（invocation count）来约束。Mock API为这个提供三个特殊的变量：[times](http://jmockit.org/api1x/mockit/Expectations.html#times), [minTimes](http://jmockit.org/api1x/mockit/Expectations.html#minTimes)和[maxTimes](http://jmockit.org/api1x/mockit/Expectations.html#maxTimes)。这些变量在expectation录制，或者验证的时候都可以使用。无论在哪种情况下，和expectation相关联的方法都会被约束，使其调用次数在约束的范围之内。任何调用次数小于或大于预期的下限或上限时，都会导致测试失败。请看下面的例子。
+
+```java
+@Test
+public void someTestMethod(@Mocked final DependencyAbc abc)
+{
+   new Expectations() {{
+      // By default, at least one invocation is expected, i.e. "minTimes = 1":
+      new DependencyAbc();
+
+      // At least two invocations are expected:
+      abc.voidMethod(); minTimes = 2;
+
+      // 1 to 5 invocations are expected:
+      abc.stringReturningMethod(); minTimes = 1; maxTimes = 5;
+   }};
+
+   new UnitUnderTest().doSomething();
+}
+
+@Test
+public void someOtherTestMethod(@Mocked final DependencyAbc abc)
+{
+   new UnitUnderTest().doSomething();
+
+   new Verifications() {{
+      // Verifies that zero or one invocations occurred, with the specified argument value:
+      abc.anotherVoidMethod(3); maxTimes = 1;
+
+      // Verifies the occurrence of at least one invocation with the specified arguments:
+      DependencyAbc.someStaticMethod("test", false); // "minTimes = 1" is implied
+   }};
+}
+```
+
+不同于`result`变量，对于一个expectation，这三个变量都最多只能指定一次。任何非负整数对于任意调用次数约束都是有效的。如果设置了`times=0`或`maxTimes=0`，如果在replay中有匹配expectation的调用，在其第一次调用时就会导致测试失败。
+
 ## Explicit verification
+
+在expectation上，出了设定调用次数限制，我们还可以在调用被测试代码之后，在一个verification块中显式的验证匹配的调用。但这对strict expectation是无效的，因为它会隐式的验证，因此，在一个verification块中再次显式验证是没有意义的。
+
+在一个`new Verification() {...}`块中我们可以使用和`new Expectation() {...}`块相同的API，以及记录返回结果的变量和抛出异常或错误的方法异常。即，我们可以自由的使用`anyXyz`变量，`withXyz(...)`参数匹配方法，以及`times`, `minTimes`和`maxTimes`调用次数约束变量。下面给出一个测试例子。
+
+```java
+@Test
+public void verifyInvocationsExplicitlyAtEndOfTest(@Mocked final Dependency mock)
+{
+   // Nothing recorded here, though it could be.
+
+   // Inside tested code:
+   Dependency dependency = new Dependency();
+   dependency.doSomething(123, true, "abc-xyz");
+
+   // Verifies that Dependency#doSomething(int, boolean, String) was called at least once,
+   // with arguments that obey the specified constraints:
+   new Verifications() {{ mock.doSomething(anyInt, true, withPrefix("abc")); }};
+}
+```
+
+注意，默认情况下，一个verification验证在replay阶段至少有一次匹配的调用。当我们需要验证确切的调用次数的时候（包括1），应该指明`times = n`约束。
+
+### Verifying that an invocation never happened
+
+要在verification块中验证没有发生过某调用，在其调用语句之后添加`times = 0`即表示预期该调用不会在replay阶段发生。
+
+### Verification in order
+
+使用**Verification**类创建的verification块是无序的。`aMethod()`和`anotherMethod()`方法在replay阶段调用的实际顺序不会被验证，只是验证这些方法被调用了至少一次。如果你想验证这些调用的相对顺序，那么应该使用`new VerificationsInOrder() {...}`块。在这个块中，按照预期发生的顺序编写对mock类型的调用。
+
+```java
+@Test
+public void verifyingExpectationsInOrder(@Mocked final DependencyAbc abc)
+{
+   // Somewhere inside the tested code:
+   abc.aMethod();
+   abc.doSomething("blah", 123);
+   abc.anotherMethod(5);
+   ...
+
+   new VerificationsInOrder() {{
+      // The order of these invocations must be the same as the order
+      // of occurrence during replay of the matching invocations.
+      abc.aMethod();
+      abc.anotherMethod(anyInt);
+   }};
+}
+```
+
+注意，对`abc.doSomething(...)`的调用并没有在测试中进行验证，因此它可以发生呢个在任意时间（或者不发生）。
+
+### Partial ordered verification
+
 
 ## Capturing invocation arguments for verification
 
