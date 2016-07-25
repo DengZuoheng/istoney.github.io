@@ -25,7 +25,7 @@ tags: [test, jmockit]
 public void doBusinessOperationXyz(@Mocked final AnotherDependency anotherMock)
 {
    ...
-   new Expectations() {{ // an "expectation block"
+   new Expectations() {\{ // an "expectation block"
       ...
       // Record an expectation, with a given value to be returned:
       mockInstance.mockedMethod(...); result = 123;
@@ -34,7 +34,7 @@ public void doBusinessOperationXyz(@Mocked final AnotherDependency anotherMock)
    ...
    // Call the code under test.
    ...
-   new Verifications() {{ // a "verification block"
+   new Verifications() {\{ // a "verification block"
       // Verifies an expected invocation:
       anotherMock.save(any); times = 1;
    }};
@@ -574,7 +574,7 @@ public void verifyingExpectationsInOrder(@Mocked final DependencyAbc abc)
    abc.anotherMethod(5);
    ...
 
-   new VerificationsInOrder() {{
+   new VerificationsInOrder() {\{
       // The order of these invocations must be the same as the order
       // of occurrence during replay of the matching invocations.
       abc.aMethod();
