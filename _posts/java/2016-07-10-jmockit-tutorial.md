@@ -589,19 +589,52 @@ public void verifyingExpectationsInOrder(@Mocked final DependencyAbc abc)
 
 ### Partial ordered verification
 
+---
 
 ## Capturing invocation arguments for verification
 
+...
+
+---
+
 ## Delegates: specifying custom results
+
+...
+
+---
 
 ## Cascading mocks
 
+...
+
+---
+
 ## Partial mocking
+
+...
+
+---
 
 ## Capturing implementation classes and instances
 
+...
+
+---
+
 ## Instantiation and injection of tested classes
+
+...
+
+---
 
 ## Reusing expectation and verification blocks
 
+...
+
+---
+
 ## Other topics
+
+...
+
+---
