@@ -406,3 +406,103 @@ public void newCollaboratorsWithDifferentBehaviors(
 ---
 
 ## Flexible matching of argumentvalues
+
+在record和verify阶段，对mock方法或构造函数的调用会识别一个expectation。如果被调用的方法/构造函数有一个或多个参数，那么一个类似`doSomething(1, "s", true);`的记录/验证expectation，只能匹配replay阶段中参数相同的调用。对于普通对象参数（不是基本类型（primitives)或数组），会使用`equals(Object)`方法进行相等性验证。而对于数组参数，相等性验证会扩展到数组中的每个元素，因此，两个长度相同的不同数组，当其对应位置上的元素都相等时，被视作相等。
+
+在一个测试中，我们通常不知道参数值是什么，或者对于被测代码而言并不需要知道。所以，为了使一个记录或验证调用可以匹配replay中所有不同参数的调用，我们可以设置灵活的“参数匹配限制”，而不是具体的参数值。我们使用`anyXyz`变量或`withXyz(...)`方法来实现这种设置。这两种方法都是在**mockit.Invocations**中定义的，它是测试中使用到的所有expectation/verification类的基类。因此，我们可以在expectation和verification中使用它们。
+
+### Using the "any" fields for argument matching
+
+最常见的参数匹配约束可能是最没有约束的一个：对于一个给定参数匹配任何参数值的调用（当然，参数类型需要一致）。在这种情况下，我们有一套特殊的参数匹配变量来匹配，对每一个基础类型（以及其对应封装类）都有一个，有一个对应字符串，还有一个Object类型的通用参数。下面的测试展示了其使用方法。
+
+```java
+@Test
+public void someTestMethod(@Mocked final DependencyAbc abc)
+{
+   final DataItem item = new DataItem(...);
+
+   new Expectations() {{
+      // Will match "voidMethod(String, List)" invocations where the first argument is
+      // any string and the second any list.
+      abc.voidMethod(anyString, (List<?>) any);
+   }};
+
+   new UnitUnderTest().doSomething(item);
+
+   new Verifications() {{
+      // Matches invocations to the specified method with any value of type long or Long.
+      abc.anotherVoidMethod(anyLong);
+   }};
+}
+```
+
+“any”变量的使用必须出现在调用语句中实际参数的位置上，不能出现在其前面。在同一个调用语句的其他参数，你还可以使用普通的参数值。更多细节，请查看[API documentation](http://jmockit.org/api1x/mockit/Expectations.html#anyInt)。
+
+### Using the "with" methods for argument matching
+
+当记录或者验证一个expectation时，可以为调用参数的任意子集调用`withXyz(...)`方法。它们可以自由的和普通参数传入（字面值，局部变量等）混合。唯一的要求是，对该方法的调用出现在记录/验证调用语句之中，而不是在其之前。例如，不可能首先将`withNoEqual(val)`的结果值赋给一个局部变量，然后在调用语句中使用该变量。下面的测试例子展示了一些“with”方法的使用。
+
+```java
+@Test
+public void someTestMethod(@Mocked final DependencyAbc abc)
+{
+   final DataItem item = new DataItem(...);
+
+   new Expectations() {{
+      // Will match "voidMethod(String, List)" invocations with the first argument
+      // equal to "str" and the second not null.
+      abc.voidMethod("str", (List<?>) withNotNull());
+
+      // Will match invocations to DependencyAbc#stringReturningMethod(DataItem, String)
+      // with the first argument pointing to "item" and the second one containing "xyz".
+      abc.stringReturningMethod(withSameInstance(item), withSubstring("xyz"));
+   }};
+
+   new UnitUnderTest().doSomething(item);
+
+   new Verifications() {{
+      // Matches invocations to the specified method with any long-valued argument.
+      abc.anotherVoidMethod(withAny(1L));
+   }};
+}
+```
+
+请在[API documentation](http://jmockit.org/api1x/mockit/Expectations.html#anyInt)中查看更多“with”方法。除了API中已有的几个预定义的参数匹配约束，JMockit还允许用户通过[with(Delegate)](http://jmockit.org/api1x/mockit/Expectations.html#with-mockit.Delegate-)和[withArgThat(Matcher)](http://jmockit.org/api1x/mockit/Expectations.html#withArgThat-org.hamcrest.Matcher-)方法来自定义约束。
+
+### Using the null value to match ang object reference
+
+对于一个expectation，当至少使用一个匹配方法或变量时，我们恶意使用一个“捷径”来指定接收任意对象引用（对于一个引用类型参数）。仅传入`null`即可，而不需要使用`withAny(x)`或者`any`变量匹配器。特别是，这样可以避免了对参数进行类型转换的必要。然而，需要牢记的是，至少有一个显式的参数匹配器（“with”方法或“any”变量）在该expectation中使用时，这种方法才起作用。在不使用匹配器的调用中，`null`值只能匹配一个`null`引用。我们可以将上述的例子改写为如下。
+
+```java
+@Test
+public void someTestMethod(@Mocked final DependencyAbc abc)
+{
+   ...
+   new Expectations() {{
+      abc.voidMethod(anyString, null);
+   }};
+   ...
+}
+```
+
+为了特别地验证一个参数接收`null`引用，可以使用`withNull()`匹配器。
+
+## Specifying invocation count constraints
+
+## Explicit verification
+
+## Capturing invocation arguments for verification
+
+## Delegates: specifying custom results
+
+## Cascading mocks
+
+## Partial mocking
+
+## Capturing implementation classes and instances
+
+## Instantiation and injection of tested classes
+
+## Reusing expectation and verification blocks
+
+## Other topics
