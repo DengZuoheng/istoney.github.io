@@ -17,6 +17,7 @@ tags: [test, jmockit]
 下面例子中的测试作为一个基本的说明，来解释mock成员和mock参数的声明，以及它们在测试代码中的使用。
 
 ```java
+{% raw %}
 // "Dependency" is mocked for all tests in this test class.
 // The "mockInstance" field holds a mocked instance automatically created for use in each test.
 @Mocked Dependency mockInstance;
@@ -25,7 +26,7 @@ tags: [test, jmockit]
 public void doBusinessOperationXyz(@Mocked final AnotherDependency anotherMock)
 {
    ...
-   new Expectations() {\{ // an "expectation block"
+   new Expectations() {{ // an "expectation block"
       ...
       // Record an expectation, with a given value to be returned:
       mockInstance.mockedMethod(...); result = 123;
@@ -34,12 +35,13 @@ public void doBusinessOperationXyz(@Mocked final AnotherDependency anotherMock)
    ...
    // Call the code under test.
    ...
-   new Verifications() {\{ // a "verification block"
+   new Verifications() {{ // a "verification block"
       // Verifies an expected invocation:
       anotherMock.save(any); times = 1;
    }};
    ...
 }
+{% endraw %}
 ```
 
 在执行测试方法时，对于测试方法中声明的mock参数，JMockit将会自动生成一个指定类型的对象，并传递给JUnit/TestNG测试引擎。因此，参数的值绝不会是`null`。对于一个mock成员，如果它不是`final`的，JMockit将会自动生成一个对应类型的实例，并将其赋值给该成员。
@@ -59,6 +61,7 @@ JMockit创建的mock实例可以在测试代码中正常使用，或者在测试
 下面的例子展示了一个`Dependency#someMethod(int, String)`的expectation，它将匹配参数值与指定值一致的该方法的调用。注意到，一个expectation它本身是通过对mock方法的一次独立的调用来定义的。该过程并不涉及其他特殊的API（像其他mock API做的那样^_^）。然而，这次调用并不是测试中真正的调用，它仅仅是用来定义expectation。
 
 ```java
+{% raw %}
 @Test
 public void doBusinessOperationXyz(@Mocked final Dependency mockInstance)
 {
@@ -73,6 +76,7 @@ public void doBusinessOperationXyz(@Mocked final Dependency mockInstance)
    // A call to code under test occurs here, leading to mock invocations
    // that may or may not match specified expectations.
 }
+{% endraw %}
 ```
 
 在我们理解了`record`、`replay`和`verify`的调用之间的区别之后我们会了解更多关于expectation的东西。
@@ -110,6 +114,7 @@ public void someTestMethod()
 采用JMockit写出的基于行为的测试将按照如下的模板：
 
 ```java
+{% raw %}
 import mockit.*;
 ... other imports ...
 
@@ -171,6 +176,7 @@ public class SomeTest
       // Additional verification code, if any, either here or before the verification block.
    }
 }
+{% endraw %}
 ```
 
 上述模板还有一些变形，但其精髓是expectation块属于record阶段，并且出现在被测试代码执行之前，而verification块属于verify阶段。一个测试方法可以包含任意数目的expectation块和verification块。
@@ -233,6 +239,7 @@ public class UnitUnderTest
 对于`doSomething()`方法，一个可能的测试是在成功的执行几次后抛出一个**SomeCheckedException**。假如我们希望（无论什么原因）完整的记录这两个class交互的expectation，我们可能会按照如下编写这个测试。（通常，在一个给定测试中，并没有必要，也不重要，去记录mock方法和mock构造函数的所有调用，我们会在后面解决这个问题。）
 
 ```java
+{% raw %}
 @Test
 public void doSomethingHandlesSomeCheckedException(@Mocked final DependencyAbc abc) throws Exception
 {
@@ -248,6 +255,7 @@ public void doSomethingHandlesSomeCheckedException(@Mocked final DependencyAbc a
 
    new UnitUnderTest().doSomething();
 }
+{% endraw %}
 ```
 
 这个测试记录了三种不同的expectation。第一个，表示对`DependencyAbc()`的调用，仅仅表示在被测试代码中这个依赖项会被初始化，通过无参数的构造函数；不需要指定返回值，出了偶然的exception/error会被抛出（构造函数的返回值类型是void，因此没有必要为它们记录返回的结果）。第二个expectation为`intReturningMethod()`记录了调用时的返回结果为3。第三个为`stringReturningMethod()`记录了三个连续的返回值，其中最后一个result是一个可能的exception，这样就可以达到测试的目的了（注意，只有这个exception不会继续被向外传播时，这个测试才算通过）。
@@ -296,6 +304,7 @@ public final class ConcatenatingInputStream extends InputStream
 这个class可以简单使用**ByteArrayInputStream**对象作为输入来测试，不使用mock。但是，让我们假设我们希望确保`InputStrean#read()`方法在构造函数传入的任何input stream上都正常工作。如下测试将会测试这一点。
 
 ```java
+{% raw %}
 @Test
 public void concatenateInputStreams(
    @Injectable final InputStream input1, @Injectable final InputStream input2)
@@ -312,6 +321,7 @@ public void concatenateInputStreams(
 
    assertArrayEquals(new byte[] {1, 2, 3}, buf);
 }
+{% endraw %}
 ```
 
 注意，这里`@Injectable`的使用是非常必要的，因此测试的class继承了被mock的class，而测试**ConcatenatingInputStream**时调用的方法正是在基类**InputStream**中定义的方法。如果**InputStream**是采用普通的mock方式，那么`read(byte[])`方法将会一直被mock，无论是哪一个实例被调用。
@@ -321,6 +331,7 @@ public void concatenateInputStreams(
 当使用`@Mocked`或`@Capturing`（同时在相同的成员或参数上不使用`@Injectable`）时，我们仍然可以将replay的某个特定mock实例的调用与expectation记录进行匹配。为了做到这点，我们在记录expectation的时候，使用`onInstance(mockObject)`方法，如下所示。
 
 ```java
+{% raw %}
 @Test
 public void matchOnMockInstance(@Mocked final Collaborator mock)
 {
@@ -338,6 +349,7 @@ public void matchOnMockInstance(@Mocked final Collaborator mock)
    // ...we won't get the recorded result, but the default one:
    assertEquals(0, another.getValue());
 }
+{% endraw %}
 ```
 上面的例子中，测试代码只有在与记录中方法调用的同一个实例上调用`getValue()`才可以通过。当被测试代码要在同一类型的两个或多个不同实例上进行调用，并且测试希望在每一个实例上验证调用的时候，这种方式特别有用。
 
@@ -350,6 +362,7 @@ public void matchOnMockInstance(@Mocked final Collaborator mock)
 第一种机制需要在记录实例方法的expectation时，包含一个简单的从被记录的构造函数获取实例的expectation。如下例所示。
 
 ```java
+{% raw %}
 @Test
 public void newCollaboratorsWithDifferentBehaviors(@Mocked Collaborator anyCollaborator)
 {
@@ -370,6 +383,7 @@ public void newCollaboratorsWithDifferentBehaviors(@Mocked Collaborator anyColla
    new Collaborator("another value").doSomething(0); // will throw the exception
    ...
 }
+{% endraw %}
 ```
 
 在上述测试中，我们用`@Mocked`为期望的class声明了一个mock成员或参数。这个mock成员/参数并没有在记录expectation的时候使用；而是使用在“实例化记录”（instantiatiion recordings）中创建的实例来记录实例方法的预期行为。使用匹配的构造函数生成的未来实例，会和记录的实例对应。同时注意，这不是时一一对应关系，而是多对一的关系，从多个可能的未来实例对应到记录的expectation中的一个实例。
@@ -377,6 +391,7 @@ public void newCollaboratorsWithDifferentBehaviors(@Mocked Collaborator anyColla
 第二种机制让我们为那些匹配构造函数的未来实例，记录一个替代实例。采用这种方法，我们可以这样重写上述测试。
 
 ```java
+{% raw %}
 @Test
 public void newCollaboratorsWithDifferentBehaviors(
    @Mocked final Collaborator col1, @Mocked final Collaborator col2)
@@ -397,6 +412,7 @@ public void newCollaboratorsWithDifferentBehaviors(
    new Collaborator("another value").doSomething(0); // will throw the exception
    ...
 }
+{% endraw %}
 ```
 
 该测试的上述两个版本是等价的。当结合使用部分（partial）mock时，第二种方式还可以允许一个真实实例（非mock）来作为替换。
@@ -414,6 +430,7 @@ public void newCollaboratorsWithDifferentBehaviors(
 最常见的参数匹配约束可能是最没有约束的一个：对于一个给定参数匹配任何参数值的调用（当然，参数类型需要一致）。在这种情况下，我们有一套特殊的参数匹配变量来匹配，对每一个基础类型（以及其对应封装类）都有一个，有一个对应字符串，还有一个Object类型的通用参数。下面的测试展示了其使用方法。
 
 ```java
+{% raw %}
 @Test
 public void someTestMethod(@Mocked final DependencyAbc abc)
 {
@@ -432,6 +449,7 @@ public void someTestMethod(@Mocked final DependencyAbc abc)
       abc.anotherVoidMethod(anyLong);
    }};
 }
+{% endraw %}
 ```
 
 “any”变量的使用必须出现在调用语句中实际参数的位置上，不能出现在其前面。在同一个调用语句的其他参数，你还可以使用普通的参数值。更多细节，请查看[API documentation](http://jmockit.org/api1x/mockit/Expectations.html#anyInt)。
@@ -441,6 +459,7 @@ public void someTestMethod(@Mocked final DependencyAbc abc)
 当记录或者验证一个expectation时，可以为调用参数的任意子集调用`withXyz(...)`方法。它们可以自由的和普通参数传入（字面值，局部变量等）混合。唯一的要求是，对该方法的调用出现在记录/验证调用语句之中，而不是在其之前。例如，不可能首先将`withNoEqual(val)`的结果值赋给一个局部变量，然后在调用语句中使用该变量。下面的测试例子展示了一些“with”方法的使用。
 
 ```java
+{% raw %}
 @Test
 public void someTestMethod(@Mocked final DependencyAbc abc)
 {
@@ -463,6 +482,7 @@ public void someTestMethod(@Mocked final DependencyAbc abc)
       abc.anotherVoidMethod(withAny(1L));
    }};
 }
+{% endraw %}
 ```
 
 请在[API documentation](http://jmockit.org/api1x/mockit/Expectations.html#anyInt)中查看更多“with”方法。除了API中已有的几个预定义的参数匹配约束，JMockit还允许用户通过[with(Delegate)](http://jmockit.org/api1x/mockit/Expectations.html#with-mockit.Delegate-)和[withArgThat(Matcher)](http://jmockit.org/api1x/mockit/Expectations.html#withArgThat-org.hamcrest.Matcher-)方法来自定义约束。
@@ -472,6 +492,7 @@ public void someTestMethod(@Mocked final DependencyAbc abc)
 对于一个expectation，当至少使用一个匹配方法或变量时，我们恶意使用一个“捷径”来指定接收任意对象引用（对于一个引用类型参数）。仅传入`null`即可，而不需要使用`withAny(x)`或者`any`变量匹配器。特别是，这样可以避免了对参数进行类型转换的必要。然而，需要牢记的是，至少有一个显式的参数匹配器（“with”方法或“any”变量）在该expectation中使用时，这种方法才起作用。在不使用匹配器的调用中，`null`值只能匹配一个`null`引用。我们可以将上述的例子改写为如下。
 
 ```java
+{% raw %}
 @Test
 public void someTestMethod(@Mocked final DependencyAbc abc)
 {
@@ -481,6 +502,7 @@ public void someTestMethod(@Mocked final DependencyAbc abc)
    }};
    ...
 }
+{% endraw %}
 ```
 
 为了特别地验证一个参数接收`null`引用，可以使用`withNull()`匹配器。
@@ -498,6 +520,7 @@ public void someTestMethod(@Mocked final DependencyAbc abc)
 一个方法调用和expectation匹配的次数可以通过“调用次数”（invocation count）来约束。Mock API为这个提供三个特殊的变量：[times](http://jmockit.org/api1x/mockit/Expectations.html#times), [minTimes](http://jmockit.org/api1x/mockit/Expectations.html#minTimes)和[maxTimes](http://jmockit.org/api1x/mockit/Expectations.html#maxTimes)。这些变量在expectation录制，或者验证的时候都可以使用。无论在哪种情况下，和expectation相关联的方法都会被约束，使其调用次数在约束的范围之内。任何调用次数小于或大于预期的下限或上限时，都会导致测试失败。请看下面的例子。
 
 ```java
+{% raw %}
 @Test
 public void someTestMethod(@Mocked final DependencyAbc abc)
 {
@@ -528,6 +551,7 @@ public void someOtherTestMethod(@Mocked final DependencyAbc abc)
       DependencyAbc.someStaticMethod("test", false); // "minTimes = 1" is implied
    }};
 }
+{% endraw %}
 ```
 
 不同于`result`变量，对于一个expectation，这三个变量都最多只能指定一次。任何非负整数对于任意调用次数约束都是有效的。如果设置了`times=0`或`maxTimes=0`，如果在replay中有匹配expectation的调用，在其第一次调用时就会导致测试失败。
@@ -539,6 +563,7 @@ public void someOtherTestMethod(@Mocked final DependencyAbc abc)
 在一个`new Verification() {...}`块中我们可以使用和`new Expectation() {...}`块相同的API，以及记录返回结果的变量和抛出异常或错误的方法异常。即，我们可以自由的使用`anyXyz`变量，`withXyz(...)`参数匹配方法，以及`times`, `minTimes`和`maxTimes`调用次数约束变量。下面给出一个测试例子。
 
 ```java
+{% raw %}
 @Test
 public void verifyInvocationsExplicitlyAtEndOfTest(@Mocked final Dependency mock)
 {
@@ -552,6 +577,7 @@ public void verifyInvocationsExplicitlyAtEndOfTest(@Mocked final Dependency mock
    // with arguments that obey the specified constraints:
    new Verifications() {{ mock.doSomething(anyInt, true, withPrefix("abc")); }};
 }
+{% endraw %}
 ```
 
 注意，默认情况下，一个verification验证在replay阶段至少有一次匹配的调用。当我们需要验证确切的调用次数的时候（包括1），应该指明`times = n`约束。
