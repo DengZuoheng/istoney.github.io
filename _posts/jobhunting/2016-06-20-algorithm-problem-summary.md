@@ -83,11 +83,9 @@ tags: [Job]
 
 **Reverse Integer** `leetcode` `Easy`
 
-> 对整数进行数字翻转.
-
-> Example1: x = 123, return 321
-
-> Example2: x = -123, return -321
+> 对整数进行数字翻转.<br>
+Example1: x = 123, return 321<br>
+Example2: x = -123, return -321
 
 - 首先判断整数的正负类型，然后逐步取余计算翻转结果，翻转结果保存在long中，最后判断结果是否超出int范围，若是返回0.
 
