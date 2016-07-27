@@ -1,6 +1,6 @@
 ---
 layout: post
-title: JMockIt Tutorial Translation
+title: JMockIt Tutorial Translation - Mocking
 category : java
 tags: [test, jmockit]
 ---
@@ -419,7 +419,7 @@ public void newCollaboratorsWithDifferentBehaviors(
 
 ---
 
-## Flexible matching of argumentvalues
+## Flexible matching of argument values
 
 在record和verify阶段，对mock方法或构造函数的调用会识别一个expectation。如果被调用的方法/构造函数有一个或多个参数，那么一个类似`doSomething(1, "s", true);`的记录/验证expectation，只能匹配replay阶段中参数相同的调用。对于普通对象参数（不是基本类型（primitives)或数组），会使用`equals(Object)`方法进行相等性验证。而对于数组参数，相等性验证会扩展到数组中的每个元素，因此，两个长度相同的不同数组，当其对应位置上的元素都相等时，被视作相等。
 
