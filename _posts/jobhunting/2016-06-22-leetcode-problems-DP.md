@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Algorithm Problems: DP
+title: LeetCode Problems: DP
 category: Job Hunting
 tags: [job, algorithm, leetcode]
 ---
