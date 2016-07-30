@@ -2,7 +2,7 @@
 layout: post
 title: Algorithm Problems Summary
 category: Job Hunting
-tags: [Job]
+tags: [job, algorithm, leetcode]
 ---
 {% include JB/setup %}
 

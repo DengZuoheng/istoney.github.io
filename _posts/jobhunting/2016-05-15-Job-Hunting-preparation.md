@@ -2,7 +2,7 @@
 layout: post
 title: Job Hunting Preparations
 category: Job Hunting
-tags: [Job]
+tags: [job]
 ---
 {% include JB/setup %}
 

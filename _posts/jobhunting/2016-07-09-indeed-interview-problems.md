@@ -2,7 +2,7 @@
 layout: post
 title: Indeed 2017 Online Test
 category: Job Hunting
-tags: [Job]
+tags: [job, algorithm, interview]
 ---
 {% include JB/setup %}
 

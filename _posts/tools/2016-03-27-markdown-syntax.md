@@ -2,7 +2,7 @@
 layout: post
 title: Markdown 简明语法
 category: tools
-tags: [markdwon, 语法]
+tags: [markdwon]
 ---
 {% include JB/setup %}
 

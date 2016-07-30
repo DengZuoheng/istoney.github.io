@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Jekyll配置Markdown代码高亮
-catergory: jekyll
+category: jekyll
 tags: [jekyll, highlighter]
 ---
 {% include JB/setup %}

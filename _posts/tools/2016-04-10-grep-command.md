@@ -2,7 +2,7 @@
 layout: post
 title: Linux命令之grep
 category: tools
-tags: [grep]
+tags: [grep, linux]
 ---
 {% include JB/setup %}
 

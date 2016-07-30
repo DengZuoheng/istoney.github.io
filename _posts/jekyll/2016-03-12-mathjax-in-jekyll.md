@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 在Jekyll中配置MathJax数学公式
-catergory: jekyll
+category: jekyll
 tags: [jekyll, mathjax]
 ---
 {% include JB/setup %}
