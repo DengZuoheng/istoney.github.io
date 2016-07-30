@@ -144,7 +144,15 @@ Y   I   R
 
 [10 - Regular Expression Matching](https://leetcode.com/problems/regular-expression-matching/) 实现支持'.'和'\*'的正则匹配。
 
-- DP，DP[i][j]表示s[0…i]与t[0…j]是否匹配。
+- DP, \\( O(n^2) \\).
+    + 设模式字符串为p，被匹配字符串为s. dp[i][j]表示p[0...i-1]与s[0...j-1]是否匹配；
+    + 初始化，dp[0][0]为true，第一行dp[0][j]为false，第一列dp[i][0]检查p开头为"a\*"或"a\*b\*"等；
+    + 若p[i-1]=='\*'，dp[i][j] = dp[i-2][j] || ((p[i-2]==s[j-1] || p[i-2]=='.') && dp[i][j-1]);
+    + 否则，dp[i][j] = dp[i-1][j-1] && (p[i-1] == s[j-1] || p[i-1] == '.');
+- 回溯, \\( O(!n) \\).
+    + 双指针i，j指向s与p的当前字符；
+    + 首先判断p的下一字符是否为*，若不是，判断s[i]与p[j]是否相等或p[j]等于'.'，递归；
+    + 若是，遍历*匹配0, 1...个字符的情况，每种情况下递归。
 
 [44 - Wildcard Matching](https://leetcode.com/problems/wildcard-matching/) 实现支持'？'和'\*'的正则匹配。
 
