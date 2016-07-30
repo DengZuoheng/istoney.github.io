@@ -71,7 +71,7 @@ Y   I   R
 
 ---
 
-## 3 数字的表示与计算
+## 3. 数字的表示与计算
 
 ### 3.1 整数表示与计算
 
@@ -123,15 +123,15 @@ Y   I   R
 
 ---
 
-## 4 栈和队列
+## 4. 栈和队列
 
 ---
 
-## 5 二叉树
+## 5. 二叉树
 
 ---
 
-## 6 查找
+## 6. 查找
 
 [4 - Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/) 给定两个排序数组，求其所有数的中位数，要求算法复杂度为\\( O(log(m+n)) \\)。
 
@@ -140,7 +140,7 @@ Y   I   R
 
 ---
 
-## 7 DP
+## 7. DP
 
 [10 - Regular Expression Matching](https://leetcode.com/problems/regular-expression-matching/) 实现支持'.'和'\*'的正则匹配。
 
@@ -153,11 +153,11 @@ Y   I   R
 
 ---
 
-## 8 DFS & BFS
+## 8. DFS & BFS
 
 ---
 
-## 9 Hash
+## 9. 贪心
 
 [3 - Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)  给定一个字符串，找出没有重复字符的最长字串的长度。
 
