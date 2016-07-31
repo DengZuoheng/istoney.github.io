@@ -8,4 +8,23 @@ http://istoney.github.io/rss.xml
 http://istoney.github.io/sitemap.txt
 http://istoney.github.io/tags
 
-http://istoney.github.io/lessons/2011/12/29/jekyll-introduction
+http://istoney.github.io/java/2016/07/10/jmockit-tutorial
+http://istoney.github.io/job%20hunting/2016/07/09/indeed-interview-problems
+http://istoney.github.io/job%20hunting/2016/06/22/leetcode-problems-DP
+http://istoney.github.io/job%20hunting/2016/06/21/leetcode-problems-array
+http://istoney.github.io/job%20hunting/2016/06/20/algorithm-problem-summary
+http://istoney.github.io/job%20hunting/2016/05/15/Job-Hunting-preparation
+http://istoney.github.io/datamining/2016/04/30/spark-programming-guide
+http://istoney.github.io/tools/2016/04/10/grep-command
+http://istoney.github.io/beauty%20of%20programming/2016/04/05/chinese-chess
+http://istoney.github.io/c++/2016/04/04/fork-summary
+http://istoney.github.io/beauty%20of%20programming/2016/04/02/let-cpu-on-your-command
+http://istoney.github.io/algorithms/2016/04/01/mogujie-fix-table
+http://istoney.github.io/tools/2016/03/30/vim-command
+http://istoney.github.io/data%20structure/2016/03/29/interval-tree
+http://istoney.github.io/tools/2016/03/27/markdown-syntax
+http://istoney.github.io/poj/2016/03/27/poj-2109
+http://istoney.github.io/algorithms/2016/03/20/longest-palindromic-subsequence
+http://istoney.github.io/jekyll/2016/03/12/mathjax-in-jekyll
+http://istoney.github.io/jekyll/2016/03/10/set-markdown-hightlighter
+http://istoney.github.io/jekyll/2011/12/29/jekyll-introduction

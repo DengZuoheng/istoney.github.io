@@ -37,6 +37,53 @@ tags: [job, algorithm, leetcode]
 - 注意剪枝，例如遍历时，k个连续元素和大于target，则停止遍历...
 - 可采用Hash表缓存两个数的和，替换twoSum计算；
 
+#### 1.1.2 容积 & 面积
+
+[Source Code](/job%20hunting/2016/06/21/leetcode-problems-array#section-1)
+
+[11 - Container With Most Water](https://leetcode.com/problems/container-with-most-water/) X轴上有n条竖直线段，每段高度为\\( a_i \\)，从中选取两条使其组成的容器装下的水最多。
+
+- 双指针。指针i，j分别指向数组的首尾，求此时面积并记录；
+- 判断i，j处线段的高度，移动高度较小的一个，i向后移动，j向前移动，直到i，j相遇。
+- 证明：当height[j]<height[i]时，height[j]限制了area(i,j)的高度，则area(i+1,]，area[i+2]...都将小于area(i,j)，所以都不需要计算，将j移向下一位置即可。
+
+[42 - Trapping Rain Water](https://leetcode.com/problems/trapping-rain-water/) 给定N个非负整数代表X上N个高度为\\( a_i \\)，宽度为1的实体矩形，求下雨后矩形间可以存下多少水。
+
+- 每个位置的宽度固定为1，其积水高度在于其左右两侧两个最高矩形的最小高度；
+- 正序遍历，记录每个位置上其左侧最高高度；然后倒序遍历，记录每个位置上其右侧最高高度。
+- 每个位置上积水高度为min(maxHeightLeft, maxHeightRight) - height[i]，若该值为负，表示积水为0.
+
+[84 - Largest Rectangle in Histogram](https://leetcode.com/problems/largest-rectangle-in-histogram/) 给定N个整数代表X轴上N个高度为\\( a_i \\)的柱状图，在改图中求面积最大的矩形。
+
+- 在位置i上，若以i的高度heights[i]构建矩形，该矩形的宽度取决于i的左侧第一个低于i的位置，以及i右侧第一个低于i的位置；
+- 正向遍历数组，对每个位置i计算其左侧第一个低于其高度的位置lowHeightLeft：从j=i-1开始，若j低于i则结果为i，若j高于i，则令j=lowHeightLeft[j]，继续上述过程；0位置为-1；
+- 倒序计算每个位置右侧第一个低于其高度的位置lowHeightRight，过程类似；末尾位置为heights.size()；
+- 遍历，计算位置i上，以heights[i]为高度的矩形的面积：rect = heights[i] * (lowHeightRight[i] - lowHeightLeft[i] - 1)；
+
+**类型总结**
+
+- 求容积或面积类的问题中，关键在于查找高度变化的位置。
+
+#### 1.1.3 Stock
+
+[Source Code](/job%20hunting/2016/06/21/leetcode-problems-array#stock)
+
+[121 - Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/) 给定N个整数代表股票的价格，只允许一次买卖，先买后买，求最大利润。
+
+- 先买后卖，所以在i时间点，可取的最大利润是以min(prices[0]...prices[i-1])买入，以prices[i]卖出；
+- 遍历数组，记录到该位置之前的最小值，并计算此时卖出的利润，与最大利润比较，记录最大利润。
+
+[122 - Best Time to Buy and Sell Stock II](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/) 可以买卖多次，但是在买到的股票卖出之前不可以再次买入。
+
+- 多次买卖获得最大利润的方式，是抓住所有上升段，因此在每个上升段的最低点买入，最高点卖出；
+
+[123 - Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-iii/) 最多可以进行两次完整交易，求最大利润。
+
+- 因为两次交易不可以重叠，必须第一次完成后再开始第二次，所以必定存在位置k，在[0, k]的一次最大利润，加上(k, N-1]的一次最大利润，组成两次交易最大利润；
+- 正向遍历中记录minPrice可以计算从0开始到当前的最大利润，则倒序遍历记录maxPrice就可以计算从末尾开始到当前的最大利润；
+- 计算每个位置i上的[0, i]最大利润firstMaxProfit，以及[i, N-1]最大利润secondMaxProfit，并遍历数组计算firstMaxProfit[i]与secondMaxProfit[i+1]的最大和；
+- secondMaxProfit[0]、firstMaxProfit[N-1]是两个最大的一次交易利润。
+
 ---
 
 ### 1.2 链表
@@ -142,22 +189,33 @@ Y   I   R
 
 ## 7. DP
 
+[Source code](/job%20hunting/2016/06/22/leetcode-problems-DP)
+
 [10 - Regular Expression Matching](https://leetcode.com/problems/regular-expression-matching/) 实现支持'.'和'\*'的正则匹配。
 
-- DP, \\( O(n^2) \\).
-    + 设模式字符串为p，被匹配字符串为s. dp[i][j]表示p[0...i-1]与s[0...j-1]是否匹配；
+- DP，\\( O(n^2) \\)。设模式字符串为p，被匹配字符串为s. dp[i][j]表示p[0...i-1]与s[0...j-1]是否匹配；
     + 初始化，dp[0][0]为true，第一行dp[0][j]为false，第一列dp[i][0]检查p开头为"a\*"或"a\*b\*"等；
     + 若p[i-1]=='\*'，dp[i][j] = dp[i-2][j] \|\| ((p[i-2]==s[j-1] \|\| p[i-2]=='.') && dp[i][j-1]);
     + 否则，dp[i][j] = dp[i-1][j-1] && (p[i-1] == s[j-1] \|\| p[i-1] == '.');
-- 回溯, \\( O(!n) \\).
+- 回溯，\\( O(!n) \\).
     + 双指针i，j指向s与p的当前字符；
     + 首先判断p的下一字符是否为*，若不是，判断s[i]与p[j]是否相等或p[j]等于'.'，递归；
     + 若是，遍历*匹配0, 1...个字符的情况，每种情况下递归。
 
-[44 - Wildcard Matching](https://leetcode.com/problems/wildcard-matching/) 实现支持'？'和'\*'的正则匹配。
+[44 - Wildcard Matching](https://leetcode.com/problems/wildcard-matching/) 实现支持'?'和'\*'的正则匹配。此处'?'表示匹配任意字符，'\*'表示匹配任意字符序列，包括空。
 
-1. DP
-2. 双指针遍历：p中遇到*时，记录该位置（p的下一位置p_last，s的当前位置s_last），继续匹配；若匹配失败，回滚到此处，p回到p_last，s回到s_last+1,再次尝试.
+Note：本题中?和*的匹配规则与上一题不同。
+
+- DP。
+    + 当p[i]为*时，dp[I][j] = dp[I][j-1] \|\| dp[I_1][j] \|\| dp[I_1][j-1]；
+    + 否则判断p[i]与s[j]是否相等，或p[i]为?；
+    + 状态压缩，DP数组只用两行即可。
+- 回溯，见代码。
+
+[91 - Decode Ways](https://leetcode.com/problems/decode-ways/) 把A-Z编码成1, 2, ..., 26，给定一数字字符串，求其有多少种编码方式。例如，“12”可以作为“AB”的编码，也可以作为“L”的编码，因此其结果为2.
+
+- DP，类似于Fibonacci数列，dp[i] = dp[i-1] + dp[i-2];
+    + 需要注意0数字，只有当0出现在1或2的后面才是有效的，否则就是非法的。
 
 ---
 

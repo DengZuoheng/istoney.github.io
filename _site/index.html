@@ -1,42 +1,56 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
-
-    <title>Hello World!</title>
+    <title>Hello</title>
     
-    <meta name="author" content="Name Lastname">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="stoney">
 
-    
-      <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/paper/bootstrap.min.css" rel="stylesheet">
-    
-
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
     <!--[if lt IE 9]>
-      <script src="/assets/themes//resources/respond/Respond.min.js"></script>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
-    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+    <!-- Le styles -->
+    <link href="/assets/themes/twitter/css/1.4.0/bootstrap.css" rel="stylesheet">
+    <link href="/assets/themes/twitter/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
 
+    <!-- Le fav and touch icons -->
+    <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+    -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    });
+
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+    </script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+
+    <!-- syntax highlight -->
+    <link rel="stylesheet" href="/assets/css/syntax.css">
   </head>
 
   <body>
-    <nav class="navbar navbar-default" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/">Jekyll Bootstrap-3</a>
-        </div>
 
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-          <ul class="nav navbar-nav">
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="/">Stoney's Blog</a>
+          <ul class="nav">
             
             
             
@@ -97,77 +111,87 @@
           </ul>
         </div>
       </div>
-    </nav>
+    </div>
+
     <div class="container">
-      
+
+      <div class="content">
+        
+
 <div class="page-header">
-  <h1>Hello World!  <small>Supporting tagline</small></h1>
+  <h1>Hello <small>Supporting tagline</small></h1>
 </div>
 
 <div class="row">
-  <div class="col-xs-12">
-      
-<p>Read <a href="http://jekyllbootstrap.com/usage/jekyll-quick-start.html">Jekyll Quick Start</a></p>
+  <div class="span14">
+    
+<p>This is Stoney’s tec-blog, built with <a href="http://github.com/dbtek/jekyll-bootstrap-3">Jekyll Bootstrap 3</a> and <a href="http://bootswatch.com">Bootswatch</a>. I use this blog as a notes collection of what I learnt in my work.</p>
 
-<p>Complete usage and documentation available at: <a href="http://jekyllbootstrap.com">Jekyll Bootstrap</a></p>
+<h2 id="recent-posts">Recent Posts</h2>
 
-<h2 id="update-author-attributes">Update Author Attributes</h2>
-
-<p>In <code>_config.yml</code> remember to specify your own data:</p>
-
-<pre><code>title : My Blog =)
-
-author :
-  name : Name Lastname
-  email : blah@email.test
-  github : username
-  twitter : username
-</code></pre>
-
-<p>The theme should reference these variables whenever needed.</p>
-
-<h2 id="sample-posts">Sample Posts</h2>
-
-<p>This blog contains sample posts which help stage pages and blog data.
-When you don’t need the samples anymore just delete the <code>_posts/core-samples</code> folder.</p>
-
-<pre><code>$ rm -rf _posts/core-samples
-</code></pre>
-
-<p>Here’s a sample “posts list”.</p>
+<p>Here’s the recent “posts list”.</p>
 
 <ul class="posts">
   
-    <li><span>29 Dec 2011</span> &raquo; <a href="/lessons/2011/12/29/jekyll-introduction">Jekyll Introduction</a></li>
+    <li><span>10 Jul 2016</span> &raquo; <a href="/java/2016/07/10/jmockit-tutorial">JMockIt Tutorial Translation - Mocking</a></li>
+  
+    <li><span>09 Jul 2016</span> &raquo; <a href="/job%20hunting/2016/07/09/indeed-interview-problems">Indeed 2017 Online Test</a></li>
+  
+    <li><span>22 Jun 2016</span> &raquo; <a href="/job%20hunting/2016/06/22/leetcode-problems-DP">LeetCode Problems - DP</a></li>
+  
+    <li><span>21 Jun 2016</span> &raquo; <a href="/job%20hunting/2016/06/21/leetcode-problems-array">LeetCode Problems - Array</a></li>
+  
+    <li><span>20 Jun 2016</span> &raquo; <a href="/job%20hunting/2016/06/20/algorithm-problem-summary">Algorithm Problems Summary</a></li>
+  
+    <li><span>15 May 2016</span> &raquo; <a href="/job%20hunting/2016/05/15/Job-Hunting-preparation">Job Hunting Preparations</a></li>
+  
+    <li><span>30 Apr 2016</span> &raquo; <a href="/datamining/2016/04/30/spark-programming-guide">Spark Programming Guide 编程指南 v1.6.1</a></li>
+  
+    <li><span>10 Apr 2016</span> &raquo; <a href="/tools/2016/04/10/grep-command">Linux命令之grep</a></li>
+  
+    <li><span>05 Apr 2016</span> &raquo; <a href="/beauty%20of%20programming/2016/04/05/chinese-chess">编程之美 1.2 中国象棋将帅问题</a></li>
+  
+    <li><span>04 Apr 2016</span> &raquo; <a href="/c++/2016/04/04/fork-summary">Unix 多进程 fork 函数总结</a></li>
+  
+    <li><span>02 Apr 2016</span> &raquo; <a href="/beauty%20of%20programming/2016/04/02/let-cpu-on-your-command">编程之美 1.1 让CPU占用率曲线听你指挥</a></li>
+  
+    <li><span>01 Apr 2016</span> &raquo; <a href="/algorithms/2016/04/01/mogujie-fix-table">蘑菇街2016笔试题 修理桌子</a></li>
+  
+    <li><span>30 Mar 2016</span> &raquo; <a href="/tools/2016/03/30/vim-command">Vim 常用操作命令</a></li>
+  
+    <li><span>29 Mar 2016</span> &raquo; <a href="/data%20structure/2016/03/29/interval-tree">区间树(线段树) Interval Tree</a></li>
+  
+    <li><span>27 Mar 2016</span> &raquo; <a href="/tools/2016/03/27/markdown-syntax">Markdown 简明语法</a></li>
+  
+    <li><span>27 Mar 2016</span> &raquo; <a href="/poj/2016/03/27/poj-2109">POJ 2109 Power of Cryptography</a></li>
+  
+    <li><span>20 Mar 2016</span> &raquo; <a href="/algorithms/2016/03/20/longest-palindromic-subsequence">最长回文子序列 Longest Palindromic Subsequence</a></li>
+  
+    <li><span>12 Mar 2016</span> &raquo; <a href="/jekyll/2016/03/12/mathjax-in-jekyll">在Jekyll中配置MathJax数学公式</a></li>
+  
+    <li><span>10 Mar 2016</span> &raquo; <a href="/jekyll/2016/03/10/set-markdown-hightlighter">Jekyll配置Markdown代码高亮</a></li>
+  
+    <li><span>29 Dec 2011</span> &raquo; <a href="/jekyll/2011/12/29/jekyll-introduction">Jekyll Introduction</a></li>
   
 </ul>
-
-<h2 id="to-do">To-Do</h2>
-
-<p>This theme is still unfinished. If you’d like to be added as a contributor, <a href="http://github.com/dbtek/jekyll-bootstrap-3">please fork</a>!</p>
-
 
   </div>
 </div>
 
 
-      <hr>
+      </div>
+
       <footer>
-        <p>
-          &copy; 2016 Name Lastname
-          <span class="pull-right text-muted">
-            powered by
-            <a href="http://dbtek.github.io/jekyll-bootstrap-3" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll-Bootstrap-3</a>
-            and <a href="http://bootswatch.com" target="_blank">Bootswatch</a>
-          </span>
+        <p>&copy; stoney 2012
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
         </p>
       </footer>
-    </div>
+
+    </div> <!-- /container -->
 
     
 
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   </body>
 </html>
 
