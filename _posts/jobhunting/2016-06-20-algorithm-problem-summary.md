@@ -120,7 +120,7 @@ Y   I   R
 
 ## 3. 数字的表示与计算
 
-### 3.1 整数表示与计算
+### 3.1 整数表示与转换
 
 [66 - Plus One](https://leetcode.com/problems/plus-one/) 给定一个用digits数组表示的整数，高位数字在数组投头部，求该整数加一的结果。
 
@@ -138,16 +138,6 @@ Y   I   R
 
 - 双重循环计算乘法，注意进位；复杂度\\( O(m*n) \\)。
 
-[7 - Reverse Integer](https://leetcode.com/problems/reverse-integer/) 对整数进行数字翻转. Example1: x = 123, return 321; Example2: x = -123, return -321
-
-- 首先判断整数的正负类型，然后逐步取余计算翻转结果，翻转结果保存在long中，最后判断结果是否超出int范围，若是返回0.
-
-[9 - Palindrome Number](https://leetcode.com/problems/palindrome-number/) 判断一个整数是否是回文数，不要使用额外空间。
-
-- 负数不是回文数，首先判断该整数正负；
-- 每次从整数末尾去掉一个数字，用其构建新数字，直到两个数字相等或差10倍；
-- 判断两数相等或除10后相等，注意末尾有0的情况。
-
 [8 - String to Integer (atoi)](https://leetcode.com/problems/string-to-integer-atoi/) 实现atoi，将字符串转换成整数。
 
 - 首先去除字符串开头的空格，然后判断其正负符号；
@@ -162,7 +152,36 @@ Y   I   R
 - 科学计数法：2e-10，3.14e+9，.3e10，5.e-2
 - 即，+/-若干位digits(可在任意位置包含.)[e/E[+/-]若干位digits]
 
-### 3.2 二进制计算
+[12 - Integer to Roman](https://leetcode.com/problems/integer-to-roman/) 将1~3999之间的整数转换为罗马数字。
+
+- 罗马数字规则：
+    + 字符：I  V   X   L   C   D   M
+    + 数字：1  5   10  50  100 500 1000
+    + 相同的数字连写表示这些数字相加，连写不超过三次；
+    + 小的数字在大的数字的右边表示这些数字相加，小的数字（限于I、X、C）在大的数字的左边表示大数减小数；
+- 构造每位数字的Hash表：
+
+```c++
+char[][] table =
+{{"0","I","II","III","IV","V","VI","VII","VIII","IX"},
+ {"0","X","XX","XXX","XL","L","LX","LXX","LXXX","XC"},
+ {"0","C","CC","CCC","CD","D","DC","DCC","DCCC","CM"},
+ {"0","M","MM","MMM"}};
+```
+
+### 3.2 整数计算
+
+[7 - Reverse Integer](https://leetcode.com/problems/reverse-integer/) 对整数进行数字翻转. Example1: x = 123, return 321; Example2: x = -123, return -321
+
+- 首先判断整数的正负类型，然后逐步取余计算翻转结果，翻转结果保存在long中，最后判断结果是否超出int范围，若是返回0.
+
+[9 - Palindrome Number](https://leetcode.com/problems/palindrome-number/) 判断一个整数是否是回文数，不要使用额外空间。
+
+- 负数不是回文数，首先判断该整数正负；
+- 每次从整数末尾去掉一个数字，用其构建新数字，直到两个数字相等或差10倍；
+- 判断两数相等或除10后相等，注意末尾有0的情况。
+
+### 3.3 二进制计算
 
 [371 - Sum of Two Integer](https://leetcode.com/problems/sum-of-two-integers/) 不使用`+`和`-`计算符，计算两个整数的和。
 
