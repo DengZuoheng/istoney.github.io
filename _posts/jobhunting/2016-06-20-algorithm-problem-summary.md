@@ -120,6 +120,8 @@ Y   I   R
 
 ## 3. 数字的表示与计算
 
+[Source Code](/job%20hunting/2016/06/23/leetcode-problems-numberic)
+
 ### 3.1 整数表示与转换
 
 [66 - Plus One](https://leetcode.com/problems/plus-one/) 给定一个用digits数组表示的整数，高位数字在数组投头部，求该整数加一的结果。
@@ -162,11 +164,11 @@ Y   I   R
 - 构造每位数字的Hash表：
 
 ```c++
-char[][] table =
-{{"0","I","II","III","IV","V","VI","VII","VIII","IX"},
- {"0","X","XX","XXX","XL","L","LX","LXX","LXXX","XC"},
- {"0","C","CC","CCC","CD","D","DC","DCC","DCCC","CM"},
- {"0","M","MM","MMM"}};
+char[][] table = {
+    {"0","I","II","III","IV","V","VI","VII","VIII","IX"},
+    {"0","X","XX","XXX","XL","L","LX","LXX","LXXX","XC"},
+    {"0","C","CC","CCC","CD","D","DC","DCC","DCCC","CM"},
+    {"0","M","MM","MMM"}};
 ```
 
 [13 - Roman to Integer](https://leetcode.com/problems/roman-to-integer/) 将罗马数字转换成数字。
