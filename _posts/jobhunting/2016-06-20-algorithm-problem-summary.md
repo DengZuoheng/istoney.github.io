@@ -169,6 +169,15 @@ char[][] table =
  {"0","M","MM","MMM"}};
 ```
 
+[13 - Roman to Integer](https://leetcode.com/problems/roman-to-integer/) 将罗马数字转换成数字。
+
+- 对于小数字出现在大数字前面的情况要特殊判断；
+- 初次之外，对于每个字符根据其值将结果增大。
+
+[273 - Integer to English Words](https://leetcode.com/problems/integer-to-english-words/) 将整数转换为英文。
+
+- 递归对每三位整数处理，每次递归在后面添加对应“Thousand”，“Million”，“Billion”。详见代码。
+
 ### 3.2 整数计算
 
 [7 - Reverse Integer](https://leetcode.com/problems/reverse-integer/) 对整数进行数字翻转. Example1: x = 123, return 321; Example2: x = -123, return -321
