@@ -10,6 +10,8 @@ http://istoney.github.io/tags
 
 http://istoney.github.io/java/2016/07/10/jmockit-tutorial
 http://istoney.github.io/job%20hunting/2016/07/09/indeed-interview-problems
+http://istoney.github.io/job%20hunting/2016/06/25/leetcode-problems-brute-force
+http://istoney.github.io/job%20hunting/2016/06/24/leetcode-problems-string
 http://istoney.github.io/job%20hunting/2016/06/23/leetcode-problems-numberic
 http://istoney.github.io/job%20hunting/2016/06/22/leetcode-problems-DP
 http://istoney.github.io/job%20hunting/2016/06/21/leetcode-problems-array

@@ -6,6 +6,54 @@ tags: [job, algorithm, leetcode]
 ---
 {% include JB/setup %}
 
+## Unclassified
+
+### 26 - Remove Duplicates from Sorted Array
+
+```c++
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int index = 1;
+        for(int i=1;i<nums.size();++i)
+            if(nums[i] != nums[i-1])
+                nums[index++] = nums[i];
+
+        if(index < nums.size())
+            nums.resize(index);
+
+        return nums.size();
+    }
+};
+```
+
+### 80 - Remove Duplicates from Sorted Array II
+
+```c++
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int index = 1;
+        int status = 1; // in case nums[0]==nums[1]
+        for(int i=1;i<nums.size();++i) {
+            if(nums[i] != nums[i-1]) {
+                nums[index++] = nums[i];
+                status = 1;
+            }
+            else if(status == 1) {
+                nums[index++] = nums[i];
+                status = 2;
+            }
+        }
+
+        if(index < nums.size())
+            nums.resize(index);
+
+        return nums.size();
+    }
+};
+```
+
 ## 求和
 
 ## 面积

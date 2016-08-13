@@ -10,25 +10,35 @@ tags: [job, algorithm, leetcode]
 
 ### 1.1 数组
 
-#### 1.1.1 求和
+#### 1.1.1 Unclassified
+
+[26 - Remove Duplicates from Sorted Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/) 原地移除排序数组里的重复数字。
+
+- index标记移除重复元素重排后的下一位置；遍历数组，若第i个元素与前一元素不同，将其放置在index上，并将index后移。
+
+[80 - Remove Duplicates from Sorted Array II](https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/) 每个元素最多可以出现两次。
+
+- 增加status记录当前重复次数，nums[i]与前一元素不同时status为1，元素相同且status为1时，将status赋值为2.
+
+#### 1.1.2 求和
 
 [1 - Two Sum](https://leetcode.com/problems/two-sum/) 给定整数数组，返回和为目标值的两个数的下标，结果唯一.
 
-1. 排序后双指针夹逼，因为结果为下标，排序时需要将下标跟随值异同排序，复杂度\\( O(nlogn) \\)；
-2. Hash表记录每个数及下标，遍历查找，复杂度\\( O(n) \\).
+- 排序后双指针夹逼，因为结果为下标，排序时需要将下标跟随值异同排序，复杂度\\( O(nlogn) \\)；
+- Hash表记录每个数及下标，遍历查找，复杂度\\( O(n) \\).
 
 [15 - 3Sum](https://leetcode.com/problems/3sum/) 给定整数数组，返回所有和为0的三元组，不得重复.
 
-1. 对数组排序，然后从头遍历数组选取第一个数，再从第一个数之后的范围内选取另外两个数；**第一个数<=0,可进行剪枝**，且遇到相同数只计算一次。复杂度\\( O(n^2) \\).
+- 对数组排序，然后从头遍历数组选取第一个数，再从第一个数之后的范围内选取另外两个数；**第一个数<=0,可进行剪枝**，且遇到相同数只计算一次。复杂度\\( O(n^2) \\).
 
 [16 - 3Sum Closest](https://leetcode.com/problems/3sum-closest/) 给定一个数组和一个目标值target，找出和与target最接近的三个数，将和返回。
 
-1. 同3Sum，先排序，遍历选取第一个数，然后双指针夹逼计算twoSum.
+- 同3Sum，先排序，遍历选取第一个数，然后双指针夹逼计算twoSum.
 
 [18 - 4Sum](https://leetcode.com/problems/4sum/) 给定一个整数数组和目标值target，找出所有和为target的四元组。
 
-1. 类似3Sum，排序后遍历选取第一个数，然后从第一个数后再遍历选取第二个数，然后再第二个数之后的范围内就算twoSum. 计算时注意剪枝, 复杂度\\( O(n^3) \\).
-2. 首先计算所有两个数的和，存入Hash表，替换twoSum计算, 复杂度\\( O(n^2) \\).
+- 类似3Sum，排序后遍历选取第一个数，然后从第一个数后再遍历选取第二个数，然后再第二个数之后的范围内就算twoSum. 计算时注意剪枝, 复杂度\\( O(n^3) \\).
+- 首先计算所有两个数的和，存入Hash表，替换twoSum计算, 复杂度\\( O(n^2) \\).
 
 **类型总结**
 
@@ -37,7 +47,7 @@ tags: [job, algorithm, leetcode]
 - 注意剪枝，例如遍历时，k个连续元素和大于target，则停止遍历...
 - 可采用Hash表缓存两个数的和，替换twoSum计算；
 
-#### 1.1.2 容积 & 面积
+#### 1.1.3 容积 & 面积
 
 [Source Code](/job%20hunting/2016/06/21/leetcode-problems-array#section-1)
 
@@ -64,7 +74,7 @@ tags: [job, algorithm, leetcode]
 
 - 求容积或面积类的问题中，关键在于查找高度变化的位置。
 
-#### 1.1.3 Stock
+#### 1.1.4 Stock
 
 [Source Code](/job%20hunting/2016/06/21/leetcode-problems-array#stock)
 
@@ -96,6 +106,8 @@ tags: [job, algorithm, leetcode]
 
 ## 2. 字符串
 
+### Unclassified
+
 [6 - ZigZag Conversion](https://leetcode.com/problems/zigzag-conversion/) 按照给定行数，如下图所示Z形打印字符串，例如字符串`"PAYPALISHIRING"`的打印结果为`"PAHNAPLSIIGYIR"`.
 
 ```
@@ -107,6 +119,10 @@ Y   I   R
 - 每行的字符按照步进间隔出现，在一个周期中，第一行和最后一行出现一个字符，其余行出现两个字符；
 - 每个Z周期长度为2R-2，因此第一行和最后一行的步进为2R-2；
 - 第i（从0开始）行的步进为2(R-1)-2, 第二个字符的步进为2i.
+
+[14 - Longest Common Prefix](https://leetcode.com/problems/longest-common-prefix/) 给定一个字符串数组，求数组中所有字符串的最长公共前缀。
+
+- 以第一个字符串作为公共前缀，遍历剩余字符串计算每个与公共前缀的公共长度，将字符串resize，继续遍历。
 
 ### 2.2 回文
 
@@ -249,13 +265,41 @@ Note：本题中?和*的匹配规则与上一题不同。
 
 ---
 
-## 8. DFS & BFS
+## 8. DFS & BFS & 枚举
+
+[Source Code](/job%20hunting/2016/06/25/leetcode-problems-brute-force)
+
+### 暴力枚举
+
+[17 - Letter Combinations of a Phone Number](https://leetcode.com/problems/letter-combinations-of-a-phone-number/) 给定一个数字字符串，按照手机键盘的数字与字母对应关系，求该数字字符串可能代表的字母组合。
+
+![Phone Keyboard](/assets/post_img/jobhunting/leetcode17-Telephone-keypad2.svg.png)
+
+- 递归穷举：先生成后面n-1个数字组成的字母组合，然后再在这些字符串的头部分别加上第一个数字对应的字母；
+- 0对应空格，1不对应字母，因此当存在0或1时，结果为空。
+
+[22 - Generate Parentheses](https://leetcode.com/problems/generate-parentheses/) 给出整数n，生成n对括号的合法组合。
+
+- n对括号组成的字符串长度为2n，这2n个位置上，每一个位置可以是'('或')'；
+- 出现')'需要满足的条件为：到当前位置'('的数量 >= ')'的数量；
+
+### DFS
+
+[77 - Combinations](https://leetcode.com/problems/combinations/) 给定整数n和k，求在1-n中k个数的所有组合。
+
+- DFS遍历，分别以1, 2, ..., n开头递归计算，时间复杂度\\( O(n!) \\)。
+
+[39 - Combination Sum](https://leetcode.com/problems/combination-sum/) 给定整数数组C和目标T，求C中数字和为T的组合数，C中数字可重复使用。
+
+- DFS遍历，时间复杂度\\( O(n!) \\)，空间复杂度\\( O(n) \\).
+
+### BFS
 
 ---
 
 ## 9. 贪心
 
-[3 - Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)  给定一个字符串，找出没有重复字符的最长字串的长度。
+[3 - Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/) 给定一个字符串，找出没有重复字符的最长字串的长度。
 
 - 以哈希表记录每个字符出现的位置，此处哈希表用长度为256的字符数组代替；
 - 变量start记录本次无重复字串的开始位置，遍历字符串，查找字符上次出现位置；
