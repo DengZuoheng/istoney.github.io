@@ -8,6 +8,42 @@ tags: [job, algorithm, leetcode]
 
 ## Unclassified
 
+### 27 - Remove Elements
+
+```c++
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int index = 0;
+        for(int i=0;i<nums.size();++i)
+            if(nums[i] != val)
+                nums[index++] = nums[i];
+
+        if(index < nums.size())
+            nums.resize(index);
+
+        return nums.size();
+    }
+};
+```
+
+### 283 - Move Zeros
+
+```c++
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int index = 0;
+        for(int i=0;i<nums.size();++i)
+            if(nums[i] != 0)
+                nums[index++] = nums[i];
+
+        while(index < nums.size())
+            nums[index++] = 0;
+    }
+};
+```
+
 ### 26 - Remove Duplicates from Sorted Array
 
 ```c++
@@ -50,6 +86,41 @@ public:
             nums.resize(index);
 
         return nums.size();
+    }
+};
+```
+
+### 128 - Longest Consecutive Sequence
+
+```c++
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        unordered_map<int, pair<int, int>> T;
+        int maxLen = 0;
+
+        for(int i=0;i<nums.size();++i) {
+            if(T.find(nums[i]) == T.end()) {
+                unordered_map<int, pair<int, int>>::iterator left = T.find(nums[i]-1);
+                unordered_map<int, pair<int, int>>::iterator right = T.find(nums[i]+1);
+
+                pair<int, int> interval;
+
+                if(left != T.end() && right != T.end())
+                    interval = make_pair(left->second.first, right->second.second);
+                else if(left != T.end())
+                    interval = make_pair(left->second.first, nums[i]);
+                else if(right != T.end())
+                    interval = make_pair(nums[i], right->second.second);
+                else
+                    interval = make_pair(nums[i], nums[i]);
+
+                T[interval.first] = T[interval.second] = T[nums[i]] = interval;
+                maxLen = max(maxLen, interval.second - interval.first + 1);
+            }
+        }
+
+        return maxLen;
     }
 };
 ```

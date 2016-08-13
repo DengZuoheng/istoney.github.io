@@ -12,6 +12,14 @@ tags: [job, algorithm, leetcode]
 
 #### 1.1.1 Unclassified
 
+[27 - Remove Elements](https://leetcode.com/problems/remove-element/) 给定整数数组和整数值val，从数组中原地移除等于val的元素。
+
+- index标记元素重排后的下一位置；遍历数组，若第i个元素与val不同，将其放置在index上，并将index后移。
+
+[283 - Move Zeros](https://leetcode.com/problems/move-zeroes/) 将给定数组中的0移动到数组尾部。
+
+- 同#27，先移除所有0元素，然后在数组尾部空余位置补0.
+
 [26 - Remove Duplicates from Sorted Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/) 原地移除排序数组里的重复数字。
 
 - index标记移除重复元素重排后的下一位置；遍历数组，若第i个元素与前一元素不同，将其放置在index上，并将index后移。
@@ -19,6 +27,16 @@ tags: [job, algorithm, leetcode]
 [80 - Remove Duplicates from Sorted Array II](https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/) 每个元素最多可以出现两次。
 
 - 增加status记录当前重复次数，nums[i]与前一元素不同时status为1，元素相同且status为1时，将status赋值为2.
+
+[128 - Longest Consecutive Sequence](https://leetcode.com/problems/longest-consecutive-sequence/) 在一个未排序的整数数组中，求最长连续数字序列的长度。要求时间复杂度为\\( O(n) \\).
+
+- 查找连续数字序列，又要求时间复杂度为\\( O(n) \\)，因此采用哈希，哈希的key是数字本身，value是该数字所在的区间的首尾数字；
+- 计算中要保证一个区间的首尾数字的value值是正确的，区间内部数字的value值不需要更新；
+- 遍历数组，若nums[i]在哈希中存在，跳过；
+- 若不存在，检查nums[i]-1和nums[i]+1：
+    + 若都存在，将两个区间合并，并更新新区间的首尾，以及nums[i]的value；
+    + 若只存在一个，扩展该区间，并更新区间首尾的value；
+    + 若都不存在，创建一个只包含nums[i]的区间，更新nums[i]的value。
 
 #### 1.1.2 求和
 
