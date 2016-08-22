@@ -6,6 +6,8 @@ tags: [job, algorithm, leetcode]
 ---
 {% include JB/setup %}
 
+### Unclassified
+
 ### 6 - ZigZag Conversion
 
 ```c++

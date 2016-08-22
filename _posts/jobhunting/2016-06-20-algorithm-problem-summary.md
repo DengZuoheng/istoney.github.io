@@ -6,6 +6,10 @@ tags: [job, algorithm, leetcode]
 ---
 {% include JB/setup %}
 
+> - 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+> - 22, 26, 27, 39, 42, 43, 44, 65, 66, 67, 77, 84, 80, 91,
+> - 121, 122, 123, 128, 234, 273, 283, 371,
+
 ## 1. 线性表
 
 ### 1.1 数组
@@ -116,6 +120,13 @@ tags: [job, algorithm, leetcode]
 
 ### 1.2 链表
 
+[Source Code](/job%20hunting/2016/06/26/leetcode-problems-linked-list)
+
+[19 - Remove Nth Node from End of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/) 通过一次遍历删除单链表中倒数第n的节点。
+
+- 先后指针，第一个指针先走n步后第二个指针出发，两个指针同步后移，直到第一个指针达到尾部，此时第二个指针的下一个为要删除的节点；
+- 在链表头部建一个空节点作为头节点，可以有效避免头节点被删除的情况。
+
 [234 - Palindrome Linked List](https://leetcode.com/problems/palindrome-linked-list/) 判断一个单链表是否是回文的，O(n)时间复杂度和O(1)空间复杂度。
 
 - 先找到链表的中点，然后把后半部分翻转，然后判断两个半链表是否相同。
@@ -124,7 +135,7 @@ tags: [job, algorithm, leetcode]
 
 ## 2. 字符串
 
-### Unclassified
+### 2.1 Unclassified
 
 [6 - ZigZag Conversion](https://leetcode.com/problems/zigzag-conversion/) 按照给定行数，如下图所示Z形打印字符串，例如字符串`"PAYPALISHIRING"`的打印结果为`"PAHNAPLSIIGYIR"`.
 
@@ -235,6 +246,13 @@ char[][] table = {
 ---
 
 ## 4. 栈和队列
+
+### 4.1 Stack
+
+[20 - Valid Parentheses](https://leetcode.com/problems/valid-parentheses/) 字符串中包含'(', ')', '[', ']', '{', '}'，判断该字符串中括号是否有效匹配。
+
+- 若字符串中只存在一种括号，则对括号的左、右字符分别计数即可；
+- 该题目中存在三种括号类型，因此简单计数无法满足，所有采用栈进行模拟匹配。
 
 ---
 
