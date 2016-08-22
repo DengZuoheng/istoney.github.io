@@ -8,6 +8,7 @@ http://istoney.github.io/rss.xml
 http://istoney.github.io/sitemap.txt
 http://istoney.github.io/tags
 
+http://istoney.github.io/java/2016/08/15/jmockit-tips
 http://istoney.github.io/java/2016/07/10/jmockit-tutorial
 http://istoney.github.io/job%20hunting/2016/07/09/indeed-interview-problems
 http://istoney.github.io/job%20hunting/2016/06/27/leetcode-problems-stack-queue

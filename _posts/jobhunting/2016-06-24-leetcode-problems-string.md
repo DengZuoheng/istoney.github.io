@@ -112,3 +112,104 @@ public:
     }
 };
 ```
+
+## 括号匹配
+
+### 20 - Valid Parentheses
+
+```c++
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<char> S;
+
+        for(int i=0;i<s.length();++i) {
+            if(s[i]=='(' || s[i]=='[' || s[i]=='{')
+                S.push(s[i]);
+            else if(s[i]==')' && !S.empty() && S.top()=='(')
+                S.pop();
+            else if(s[i]==']' && !S.empty() && S.top()=='[')
+                S.pop();
+            else if(s[i]=='}' && !S.empty() && S.top()=='{')
+                S.pop();
+            else return false;
+        }
+
+        return S.empty();
+    }
+};
+```
+
+### 22 - Generate Parentheses
+
+```c++
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        vector<string> ans;
+
+        if(n > 0)
+            foo(ans, "", n, n);
+
+        return ans;
+    }
+
+    void foo(vector<string>& ans, string str, int restLeftNum, int restRightNum) {
+        if(restLeftNum==0 && restRightNum==0) ans.push_back(str);
+
+        if(restLeftNum > 0)
+            foo(ans, str+"(", restLeftNum-1, restRightNum);
+
+        if(restRightNum > restLeftNum)
+            foo(ans, str+")", restLeftNum, restRightNum-1);
+    }
+};
+```
+
+```c++
+class Solution {
+public:
+    int longestValidParentheses(string s) {
+        int start = 0;
+
+        int leftCount = 0, rightCount = 0;
+
+        int maxLen = 0;
+
+        for(int i=0;i<s.length();++i) {
+            if(s[i] == '(') ++leftCount;
+            else if(leftCount > rightCount)
+                ++rightCount;
+            else {
+                maxLen = max(maxLen, foo(s, start, i));
+                start = i+1;
+            }
+        }
+
+        maxLen = max(maxLen, foo(s, start, s.length()));
+
+        return maxLen;
+    }
+
+    int foo(const string &s, int start, int end) {
+        int st = end - 1;
+        int rightCount = 0, leftCount = 0;
+        int maxLen = 0;
+
+        for(int i=end-1;i>=start;--i) {
+            if(s[i] == ')') ++rightCount;
+            else if(rightCount > leftCount)
+                ++leftCount;
+            else {
+                maxLen = max(maxLen, st-i);
+                st = i - 1;
+                rightCount = leftCount = 0;
+            }
+        }
+
+        maxLen = max(maxLen, st-start+1);
+
+        return maxLen;
+    }
+};
+```

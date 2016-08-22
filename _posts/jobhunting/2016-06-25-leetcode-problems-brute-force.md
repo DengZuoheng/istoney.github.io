@@ -42,32 +42,6 @@ public:
 };
 ```
 
-### 22 - Generate Parentheses
-
-```c++
-class Solution {
-public:
-    vector<string> generateParenthesis(int n) {
-        vector<string> ans;
-
-        if(n > 0)
-            foo(ans, "", n, n);
-
-        return ans;
-    }
-
-    void foo(vector<string>& ans, string str, int restLeftNum, int restRightNum) {
-        if(restLeftNum==0 && restRightNum==0) ans.push_back(str);
-
-        if(restLeftNum > 0)
-            foo(ans, str+"(", restLeftNum-1, restRightNum);
-
-        if(restRightNum > restLeftNum)
-            foo(ans, str+")", restLeftNum, restRightNum-1);
-    }
-};
-```
-
 ## DFS
 
 ### 77 - combinations
