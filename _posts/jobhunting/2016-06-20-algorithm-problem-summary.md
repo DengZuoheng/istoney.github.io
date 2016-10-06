@@ -6,7 +6,7 @@ tags: [job, algorithm, leetcode]
 ---
 {% include JB/setup %}
 
-> - 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 22, 26, 27, 32, 39,
+> - 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 26, 27, 32, 39,
 > - 42, 43, 44, 65, 66, 67, 77, 84, 80, 91,
 > - 121, 122, 123, 128, 234, 273, 283, 301, 371,
 
@@ -15,6 +15,8 @@ tags: [job, algorithm, leetcode]
 ### 1.1 数组
 
 #### 1.1.1 Unclassified
+
+[Source Code](/job%20hunting/2016/06/21/leetcode-problems-array#unclassified)
 
 [27 - Remove Elements](https://leetcode.com/problems/remove-element/) 给定整数数组和整数值val，从数组中原地移除等于val的元素。
 
@@ -130,6 +132,20 @@ tags: [job, algorithm, leetcode]
 [234 - Palindrome Linked List](https://leetcode.com/problems/palindrome-linked-list/) 判断一个单链表是否是回文的，O(n)时间复杂度和O(1)空间复杂度。
 
 - 先找到链表的中点，然后把后半部分翻转，然后判断两个半链表是否相同。
+
+[21 - Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/) 合并两个已排序链表。
+
+- 构造一个空节点作为头，有序的将两个链表的节点追加在链表尾部，直到一个链表为空后，将另一个链表的剩余节点全部追加在尾部，返回头节点的next。
+
+[23 - Merge k Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/) 合并k个已排序链表。
+
+- 使用**优先队列**，将k的链表的头节点放入优先队列，按照节点中Value的大小，对其进行排序。每次从队列中取出一个节点，并将其下一节点放入队列，直至队列为空。
+
+[24 - Swap Nodes in Pairs](https://leetcode.com/problems/swap-nodes-in-pairs/) 给定单链表，交换每两个节点的先后顺序。
+
+- 构造一个空节点作为头，向后移动两个节点并交换，直到遇到NULL，最后返回空节点的next.
+
+![Phone Keyboard](/assets/post_img/jobhunting/leetcode24-swap-nodes.svg.png)
 
 ---
 

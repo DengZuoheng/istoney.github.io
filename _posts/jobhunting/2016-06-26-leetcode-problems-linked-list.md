@@ -46,3 +46,93 @@ public:
 
 ```c++
 ```
+
+### 21 - Merge Two Sorted Lists
+
+```c++
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        ListNode head(0);
+        ListNode * cur = &head;
+
+        ListNode *i = l1, *j = l2;
+        while(i != NULL && j != NULL) {
+            if(i->val < j->val) {
+                cur->next = i;
+                i = i->next;
+            }
+            else {
+                cur->next = j;
+                j = j->next;
+            }
+            cur = cur->next;
+        }
+
+        if(i == NULL) {
+            cur->next = j;
+        }
+        else {
+            cur->next = i;
+        }
+
+        return head.next;
+    }
+};
+```
+
+### 23 - Merge k Sorted Lists
+
+```c++
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        ListNode head(0);
+        ListNode *cur = &head;
+
+        priority_queue<ListNode*, vector<ListNode*>, cmp> que;
+
+        for(int i=0;i<lists.size();++i) {
+            if(lists[i] != NULL)
+                que.push(lists[i]);
+        }
+
+        ListNode * tmp;
+        while(!que.empty()) {
+            tmp = que.top();
+            que.pop();
+            cur->next = tmp;
+            cur = cur->next;
+
+            if(tmp->next != NULL)
+                que.push(tmp->next);
+        }
+
+        cur->next = NULL;
+
+        return head.next;
+    }
+
+    struct cmp {
+        bool operator()(ListNode *l1, ListNode *l2) {
+            return l1->val > l2->val;
+        }
+    };
+};
+```
