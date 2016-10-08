@@ -8,6 +8,8 @@ http://istoney.github.io/rss.xml
 http://istoney.github.io/sitemap.txt
 http://istoney.github.io/tags
 
+http://istoney.github.io/job%20hunting/2016/09/20/APAC-Problem-Solutions
+http://istoney.github.io/image%20processing/2016/08/20/otsu-binarization
 http://istoney.github.io/java/2016/08/15/jmockit-tips
 http://istoney.github.io/java/2016/07/10/jmockit-tutorial
 http://istoney.github.io/job%20hunting/2016/07/09/indeed-interview-problems
