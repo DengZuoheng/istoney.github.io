@@ -33,12 +33,15 @@ tags: [image, otsu, binarization]
 ```c++
 const int GREY_MAX_VALUE = 255;
 
-int getOtsuThreshold(int[] grey, int w, int h) {
+int getOtsuThreshold(int** grey, int w, int h) {
   int n = GREY_MAX_VALUE + 1;
+  
   int histogram[n];
   fill(histogram, histogram+n, 0);
-  for(int i=0;i<w*h;++i) {
-    ++histogram[grey[i] & 0xFF];
+  for(int i=0;i<w;++i) {
+    for(int j=0;j<h;++j) {
+      ++histogram[grey[i][j] & 0xFF];
+    }
   }
   
   int total = w*h, count0 = 0, count1 = 0;
