@@ -15,15 +15,16 @@ tags: [image, otsu, binarization]
 设灰度图片大小为w\*h，即图片的像素个数为w\*h. 设类别划分阈值为threshold，则灰度值小于threshold的所有像素为前景，大于threshold的所有像素为背景。设前景像素个数的占比为\\( \omega_0 \\)，其平均灰度为\\( \mu_0 \\)，背景像素个数占比为\\( \omega_1 \\)，平均灰度为\\( \mu_1 \\)。图片整体平均灰度为\\( \mu \\)。则，
 
 \\[ \omega_0 + \omega_1 = 1 \\]
-\\[ \mu = \omega_0*\mu_0 + \omega_1*\mu_1 \\]
+
+\\[ \mu = \omega_0 * \mu_0 + \omega_1 * \mu_1 \\]
 
 可得类间方差为
 
-\\[ variance = \omega_0*(\mu_0-\mu)^2 + \omega_1*(\mu_1-\mu)^2 \\]
+\\[ variance = \omega_0 * (\mu_0 - \mu)^2 + \omega_1 * (\mu_1 - \mu)^2 \\]
 
 带入上述两个等式，可得
 
-\\[ variance = \omega_0\omega_1*(\mu_0 - \mu_1)^2 \\]
+\\[ variance = \omega_0\omega_1 * (\mu_0 - \mu_1)^2 \\]
 
 ## 实现
 
