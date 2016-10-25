@@ -33,7 +33,7 @@ int main(){
     return 0;
 }
 ```
-![for循环汇编指令](/attaches/bop/1-1-forloop-assemble.jpg)
+![for循环汇编指令](/assets/post_img/bop/1-1-forloop-assemble.jpg)
 
 可以看到空的for循环，执行一次有三条汇编指令。因此设占用率为rate，idle时间是10ms，则for循环的循环次数为，(idletime/(1-rate) - idletime)\*SPEED/(3*t)。得到如下代码。
 

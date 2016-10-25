@@ -6,7 +6,7 @@ tags: [job, algorithm, leetcode]
 ---
 {% include JB/setup %}
 
-> - 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 26, 27, 32, 39,
+> - 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 26, 27, 32, 39,
 > - 42, 43, 44, 65, 66, 67, 77, 84, 80, 91,
 > - 121, 122, 123, 128, 234, 273, 283, 301, 371,
 
@@ -146,6 +146,12 @@ tags: [job, algorithm, leetcode]
 - 构造一个空节点作为头，向后移动两个节点并交换，直到遇到NULL，最后返回空节点的next.
 
 ![Phone Keyboard](/assets/post_img/jobhunting/leetcode24-swap-nodes.svg.png)
+
+[25 - Reverse Nodes in k-Group](https://leetcode.com/problems/reverse-nodes-in-k-group/) 给定单链表和整数k, 将该单链表按照k长度为一组进行翻转，当剩余长度不足k时，保持该部分的原顺序。
+
+- 从当前结点前进k步，查看剩余长度是否大于等于k；
+    + 不满足时，到达尾部，结束程序；
+    + 满足，k步后达到的节点为新的head节点，然后将k个节点倒序插入在新链表的尾部
 
 ---
 

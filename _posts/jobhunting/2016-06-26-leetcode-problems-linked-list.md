@@ -136,3 +136,91 @@ public:
     };
 };
 ```
+
+### 24 - Swap Nodes in Pairs
+
+```c++
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* swapPairs(ListNode* head) {
+        ListNode empty(0);
+        empty.next = head;
+
+        ListNode *cur = &empty;
+        ListNode *first, *second;
+
+        while(cur != NULL) {
+            first = cur->next;
+            if(first == NULL) break;
+            second = first->next;
+            if(second == NULL) break;
+
+            cur->next = second;
+            first->next = second->next;
+            second->next = first;
+
+            cur = first;
+        }
+
+        return empty.next;
+    }
+};
+```
+
+### 25 - Reverse Nodes in k-Groups
+
+```c++
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        if(head == NULL || k <= 1) return head;
+
+        ListNode empty(0);
+        ListNode* tail = &empty;
+        tail->next = head;
+
+        while(true) {
+            int c = 0;
+            ListNode* nextHead = head;
+            while(nextHead != NULL && c < k) {
+                nextHead = nextHead->next;
+                ++c;
+            }
+
+            if(c < k) break;
+
+            ListNode* newTail = head;
+            ListNode* toInsert = head->next;
+
+            for(int i=0;i<k-1;++i) {
+                ListNode* tmp = toInsert->next;
+                toInsert->next = tail->next;
+                tail->next = toInsert;
+                toInsert = tmp;
+            }
+
+            tail = newTail;
+            head = nextHead;
+            tail->next = head;
+        }
+
+        return empty.next;
+    }
+};
+```
