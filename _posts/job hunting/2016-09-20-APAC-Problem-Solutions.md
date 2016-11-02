@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Google APAC Problem Solutions
+title: 2016 Google APAC Problem Solutions
 category: Job Hunting
 tags: [job]
 ---
@@ -121,5 +121,74 @@ int main() {
     out.close();
 
     return 0;
+}
+```
+
+### Problem C. Not So Random
+
+> 现有随机数生成器RNG，以非负整数作为输入，给定整数K，做如下操作：
+- 以A/100的概率，将输入与K相与；
+- 以B/100的概率，将输入与K相或；
+- 以C/100的概率，将输入与K亦或；
+现有N个RNG，将其串联，求输入X的输出期望。
+
+\\( 1 \leq N \leq 10^5 \\)
+
+\\( 0 \leq X \leq 10^9 \\)
+
+\\( 0 \leq K \leq 10^9 \\)
+
+```c++
+#include<stdio.h>
+#include<stdlib.h>
+#include<iostream>
+#include <iomanip>
+#include<string>
+#include<fstream>
+#include<map>
+using namespace std;
+
+double foo(int N, int X, int K, int A, int B, int C) {
+    if(N == 0) return 0;
+    double a = (double)A/100, b = (double)B/100, c = (double)C/100;
+    map<int, double> table;
+
+    table[X] = 1;
+    for(int i=0;i<N;++i) {
+        map<int, double> next;
+        for(auto it=table.begin();it!=table.end();++it) {
+            int val = it->first;
+            double p = it->second;
+            next[val & K] += p*a;
+            next[val | K] += p*b;
+            next[val ^ K] += p*c;
+        }
+        table = next;
+    }
+
+    double ans = 0.0;
+    for(auto it=table.begin();it!=table.end();++it) {
+        int val = it->first;
+        double p = it->second;
+        ans += val*p;
+    }
+    return ans;
+}
+
+int main() {
+    ifstream in("C-large-practice.in");
+    ofstream out("C-large-practice.out");
+    out<<setiosflags(ios::fixed)<<setprecision(10);
+
+    int T, N, X, K, A, B, C;
+    in>>T;
+    for(int t=1;t<=T;++t) {
+        in>>N>>X>>K>>A>>B>>C;
+        cout<<t<<endl;
+        out<<"Case #"<<t<<": "<<foo(N, X, K, A, B, C)<<endl;
+    }
+    in.close();
+    out.close();
+    return 0;    
 }
 ```
