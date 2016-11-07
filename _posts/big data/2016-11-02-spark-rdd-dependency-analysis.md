@@ -95,6 +95,49 @@ abstract class RDD[T: ClassTag](
 }
 ```
 
+## 依赖类
+
+Spark中用Dependency类来表示在经过转换操作后，父RDD与子RDD之间的联系（依赖关系）。如上所述，Dependency是一个只包含一个`def rdd: RDD[T]`方法的抽象类。它有如下几种派生类：
+
+- NarrowDependency
+    + OneToOneDependency
+    + PruneDependency
+    + RangeDependency
+- ShuffleDependency
+
+### ShuffleDependency
+
+ShuffleDependency是一种会导致shuffle map stage（是一个在执行DAG时会执行shuffle操作的中间阶段，是后续阶段的输入）的依赖关系。
+
+一个ShuffleDependency应该属于一个key-value对RDD（其rdd成员的类型为`RDD[Product2[K, V]]`）。而每一个ShuffleDependency对象都有一个**shuffleId**。
+
+ShuffleDependency使用`partitiner`分割shuffle的输出。使用`ShuffleManager`来进行注册，以及`ContextCleaner`来注册自己进行清洗。每一个ShuffleDependency对象都使用其shuffleId和RDD的分区数目向`MapOutputTrackerMaster`注册。
+
+会使用到ShuffleDependency的场景包括：
+
+- 当多个RDD的`partitioner`不同时，生成`CoGroupedRDD`和`SubtractedRDD`
+- 通过shuffle操作生成的`ShuffledRDD`或`ShuffledRowRDD`
+
+可能用到也可能用不到上述RDD，而会进行shuffle的RDD操作有：
+
+- coalesce
+    + repartition
+- cogroup
+    + intersection
+- subtractByKey
+    + substract
+- sortByKey
+    + sortBy
+- repartitionAndSortWithinPartitions
+- combineByKeyWithClassTag
+    + combineByKey
+    + aggregateByKey
+    + foldByKey
+    + reduceByKey
+    + countApproxDistinctByKey
+    + groupByKey
+- partitionBy
+
 ## 内部RDD类
 
 Spark内部实现的RDD派生类有ParallelCollectionRDD, CoGroupedRDD, HadoopRDD, MapPartitionsRDD, CoalescedRDD, ShuffledRDD, PairRDD, UnionRDD等。
@@ -102,8 +145,6 @@ Spark内部实现的RDD派生类有ParallelCollectionRDD, CoGroupedRDD, HadoopRD
 ### ParallelCollectionRDD
 
 ParallelCollectionRDD是一个拥有numSlices个分区，以及可选的locationPrefs选项的元素集合，这些元素分散存储在numSlices个分区中。一个ParallelCollectionRDD对象通常是`SparkContext.parallelize`和`SparkContext.makeRDD`方法的运行结果。因此，我们可以将其看作一个应用中**最初的RDD对象**。
-
-
 
 ### MapPartitionsRDD
 
