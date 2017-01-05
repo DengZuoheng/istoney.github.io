@@ -5,10 +5,119 @@
         <description>Stoney's Blog - stoney</description>
         <link>http://istoney.github.io</link>
         <link>http://istoney.github.io</link>
-        <lastBuildDate>2016-11-03T21:19:08+08:00</lastBuildDate>
-        <pubDate>2016-11-03T21:19:08+08:00</pubDate>
+        <lastBuildDate>2016-12-12T19:42:09+08:00</lastBuildDate>
+        <pubDate>2016-12-12T19:42:09+08:00</pubDate>
         <ttl>1800</ttl>
 
+
+        <item>
+                <title>Python基础——语法基础+函数</title>
+                <description>
+&lt;h2 id=&quot;section&quot;&gt;语法基础&lt;/h2&gt;
+
+&lt;h3 id=&quot;section-1&quot;&gt;内置函数&lt;/h3&gt;
+
+&lt;p&gt;Python内置函数，官方英文文档参见&lt;a href=&quot;https://docs.python.org/2.7/library/functions.html&quot;&gt;Built-in Functions&lt;/a&gt;.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;函数签名&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;函数说明&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;abs(&lt;em&gt;x&lt;/em&gt;)&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;返回&lt;em&gt;x&lt;/em&gt;的绝对值，&lt;em&gt;x&lt;/em&gt;可以是普通整数、long整数或浮点数。当&lt;em&gt;x&lt;/em&gt;是复数时，返回&lt;em&gt;x&lt;/em&gt;的模。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;all(&lt;em&gt;iterable&lt;/em&gt;)&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;当&lt;em&gt;iterable&lt;/em&gt;为空，或所有元素均为true时返回&lt;code class=&quot;highlighter-rouge&quot;&gt;True&lt;/code&gt;，否则返回&lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt;。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;any(&lt;em&gt;iterable&lt;/em&gt;)&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;若&lt;em&gt;iterable&lt;/em&gt;中任意元素为true，则返回&lt;code class=&quot;highlighter-rouge&quot;&gt;True&lt;/code&gt;，否则返回&lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt;。当&lt;em&gt;iterable&lt;/em&gt;为空时，返回false。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;basestring()&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;抽象类型，是&lt;code class=&quot;highlighter-rouge&quot;&gt;str&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;unicode&lt;/code&gt;的父类。该类型不可调用或实例化，但可以用来检测一个对象是否为&lt;code class=&quot;highlighter-rouge&quot;&gt;str&lt;/code&gt;或&lt;code class=&quot;highlighter-rouge&quot;&gt;unicode&lt;/code&gt;实例。&lt;code class=&quot;highlighter-rouge&quot;&gt;isinstance(obj, basestring)&lt;/code&gt;等同于&lt;code class=&quot;highlighter-rouge&quot;&gt;isinstance(obj, (str, unicode))&lt;/code&gt;。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;bin(&lt;em&gt;x&lt;/em&gt;)&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;将整数转换成二进制字符串，返回结果是有效的python二进制表达式。如果&lt;em&gt;x&lt;/em&gt;不是&lt;code class=&quot;highlighter-rouge&quot;&gt;int&lt;/code&gt;对象，那么必须定义返回整数的&lt;code class=&quot;highlighter-rouge&quot;&gt;__index__()&lt;/code&gt;函数，才可使用。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;em&gt;class&lt;/em&gt; bool([&lt;em&gt;x&lt;/em&gt;])&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;返回一个布尔值，&lt;code class=&quot;highlighter-rouge&quot;&gt;True&lt;/code&gt;或&lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt;。&lt;em&gt;x&lt;/em&gt;被标准真值测试程序进行转换。如果&lt;em&gt;x&lt;/em&gt;是false或被省略，则返回&lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt;，否则返回&lt;code class=&quot;highlighter-rouge&quot;&gt;True&lt;/code&gt;。&lt;code class=&quot;highlighter-rouge&quot;&gt;bool&lt;/code&gt;是&lt;code class=&quot;highlighter-rouge&quot;&gt;int&lt;/code&gt;的子类，但是不能继续派生。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;em&gt;class&lt;/em&gt; bytearray([&lt;em&gt;source&lt;/em&gt;[, &lt;em&gt;encoding&lt;/em&gt;[, &lt;em&gt;errors&lt;/em&gt;]]])&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;返回一个新的字节数组。&lt;code class=&quot;highlighter-rouge&quot;&gt;bytearray&lt;/code&gt;类是一个&lt;em&gt;mutable sequence&lt;/em&gt;的整数（0 &amp;lt;= x &amp;lt; 256）序列。拥有大部分mutable sequence的普通函数，参见&lt;a href=&quot;https://docs.python.org/2.7/library/stdtypes.html#typesseq-mutable&quot;&gt;Mutable Sequence Types&lt;/a&gt;，以及&lt;code class=&quot;highlighter-rouge&quot;&gt;str&lt;/code&gt;的大部分方法，参加&lt;a href=&quot;https://docs.python.org/2.7/library/stdtypes.html#string-methods&quot;&gt;String Methods&lt;/a&gt;。 &lt;br /&gt;&lt;br /&gt; 可选参数&lt;em&gt;source&lt;/em&gt;有以下几种方式用于数组的初始化： &lt;br /&gt;  &lt;em&gt;source&lt;/em&gt;是&lt;em&gt;unicode&lt;/em&gt;对象，则必须同时给定参数&lt;em&gt;encoding&lt;/em&gt;， 则函数会调用&lt;code class=&quot;highlighter-rouge&quot;&gt;unicode.encode()&lt;/code&gt;方法将其转换为字节数组;&lt;br /&gt;  &lt;em&gt;source&lt;/em&gt;是&lt;em&gt;integer&lt;/em&gt;对象，按照其值创建该长度的数组，并用null字节初始化；&lt;br /&gt;  &lt;em&gt;source&lt;/em&gt;是兼容&lt;em&gt;buffer&lt;/em&gt;接口的对象，该对象会被当作一个只读的buffer来初始化数组；&lt;br /&gt;  &lt;em&gt;source&lt;/em&gt;是一个&lt;em&gt;iterable&lt;/em&gt;对象，其迭代元素必须属于[0, 255]的范围；&lt;br /&gt;&lt;br /&gt;所有参数都忽略时，会创建一个长度为0的数组。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;callable(&lt;em&gt;object&lt;/em&gt;)&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;如果&lt;em&gt;object&lt;/em&gt;是可调用的返回&lt;code class=&quot;highlighter-rouge&quot;&gt;True&lt;/code&gt;，否则返回&lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt;。注意，类是callable的（调用返回一个新对象）；当类对象中包含&lt;code class=&quot;highlighter-rouge&quot;&gt;__call__()&lt;/code&gt;时，该实例才时callable的。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;chr(&lt;em&gt;i&lt;/em&gt;)&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;以整数&lt;em&gt;i&lt;/em&gt;为ASCII码，返回只包含一个字符的字符串。该函数是&lt;code class=&quot;highlighter-rouge&quot;&gt;ord()&lt;/code&gt;函数的反过程。参数必须在[0, 255]范围内，否则会出现&lt;code class=&quot;highlighter-rouge&quot;&gt;ValueError&lt;/code&gt;异常。&lt;br /&gt;&lt;br /&gt;查看相关&lt;a href=&quot;https://docs.python.org/2.7/library/functions.html#unichr&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;uuichr()&lt;/code&gt;&lt;/a&gt;.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;classmethod(&lt;em&gt;function&lt;/em&gt;)&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;为&lt;em&gt;function&lt;/em&gt;返回一个类函数。&lt;br /&gt;&lt;br /&gt;一个类函数隐式的接收一个类作为第一个参数，就像一个实例方法接收一个实例作为第一参数一样。声明一个类方法时，需要使用&lt;code class=&quot;highlighter-rouge&quot;&gt;@classmethod&lt;/code&gt;方法，详见&lt;a href=&quot;https://docs.python.org/2.7/reference/compound_stmts.html#function&quot;&gt;Function definitions&lt;/a&gt;。&lt;br /&gt;&lt;br /&gt;类方法可以在类上调用（例如&lt;code class=&quot;highlighter-rouge&quot;&gt;C.f()&lt;/code&gt;），或者在一个实例上调用（例如&lt;code class=&quot;highlighter-rouge&quot;&gt;C().f()&lt;/code&gt;）。调用时，它的实例会被忽略。如果在一个派生类上调用类方法，派生类的类对象会被传递给隐式第一个参数。&lt;br /&gt;&lt;br /&gt;类方法与C++、Java中的静态方法不同。如果你需要，查看&lt;a href=&quot;https://docs.python.org/2.7/library/functions.html#staticmethod&quot;&gt;staticmethod()&lt;/a&gt;。&lt;br /&gt;&lt;br /&gt;关于类方法的更多信息，查看&lt;a href=&quot;https://docs.python.org/2.7/reference/datamodel.html#types&quot;&gt;The standard type hierarchy&lt;/a&gt;。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;cmp(&lt;em&gt;x&lt;/em&gt;, &lt;em&gt;y&lt;/em&gt;)&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;比较&lt;em&gt;x&lt;/em&gt;和&lt;em&gt;y&lt;/em&gt;两个对象，根据比较结果返回一个整数。若x&amp;lt;y返回负数，0若x==y，正数若x&amp;gt;y。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;compile(&lt;em&gt;source&lt;/em&gt;, &lt;em&gt;filename&lt;/em&gt;, &lt;em&gt;mode&lt;/em&gt;[, &lt;em&gt;flags&lt;/em&gt;[, &lt;em&gt;dont_inherit&lt;/em&gt;]])&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;编译&lt;em&gt;source&lt;/em&gt;成为代码或AST对象。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;class complex([&lt;em&gt;real&lt;/em&gt;[, &lt;em&gt;imag&lt;/em&gt;]])&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;返回一个值为&lt;em&gt;real&lt;/em&gt;+&lt;em&gt;imag&lt;/em&gt;*1j，或者将一个字符串或正数转换为复数。如果第一个参数是字符串，它将会被解析为一个复数，而不能传入第二个参数。第二个参数不能是字符串。两个参数都可以是任意数字，包括复数。如果&lt;em&gt;imag&lt;/em&gt;被省略了，则默认为0，该函数则作为一个数字转换函数，类似&lt;code class=&quot;highlighter-rouge&quot;&gt;int()&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;long()&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;float()&lt;/code&gt;。如果两个参数都被省略，则返回0j.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;delattr(&lt;em&gt;object&lt;/em&gt;, &lt;em&gt;name&lt;/em&gt;)&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;setattr()&lt;/code&gt;方法的相关函数。参数为一个对象和一个字符串。字符串必须是该对象属性之一的名字。该函数将删除指定的属性，如果该对象允许的话。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;em&gt;class&lt;/em&gt; dict(&lt;em&gt;**kwarg&lt;/em&gt;) &lt;br /&gt;&lt;em&gt;class&lt;/em&gt; dict(&lt;em&gt;mapping&lt;/em&gt;, &lt;em&gt;**kwarg&lt;/em&gt;) &lt;em&gt;class&lt;/em&gt; dict(&lt;em&gt;iterable&lt;/em&gt;, &lt;em&gt;**kwarg&lt;/em&gt;)&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;创建一个新词典。这个&lt;code class=&quot;highlighter-rouge&quot;&gt;dict&lt;/code&gt;对象就是词典类。关于该类，查看&lt;code class=&quot;highlighter-rouge&quot;&gt;dict&lt;/code&gt; API和&lt;a href=&quot;https://docs.python.org/2.7/library/stdtypes.html#typesmapping&quot;&gt;Mapping Types – dict&lt;/a&gt;。 &lt;br /&gt;&lt;br /&gt;关于其他容器，查看内置的&lt;code class=&quot;highlighter-rouge&quot;&gt;list&lt;/code&gt;、&lt;code class=&quot;highlighter-rouge&quot;&gt;set&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;tuple&lt;/code&gt;类，以及&lt;code class=&quot;highlighter-rouge&quot;&gt;collections&lt;/code&gt;模块。&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt; &lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;section-2&quot;&gt;内置数据类型&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;int&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;section-3&quot;&gt;流程语句&lt;/h3&gt;
+
+&lt;h3 id=&quot;section-4&quot;&gt;表达式&lt;/h3&gt;
+
+&lt;h2 id=&quot;section-5&quot;&gt;函数&lt;/h2&gt;
+
+&lt;h3 id=&quot;section-6&quot;&gt;函数定义&lt;/h3&gt;
+
+&lt;h3 id=&quot;section-7&quot;&gt;嵌套函数与闭包&lt;/h3&gt;
+
+&lt;h3 id=&quot;section-8&quot;&gt;变量作用域域声明周期&lt;/h3&gt;
+
+&lt;h3 id=&quot;yieldgenerator&quot;&gt;yield与Generator用法&lt;/h3&gt;
+
+&lt;h3 id=&quot;section-9&quot;&gt;内置函数&lt;/h3&gt;
+</description>
+                <link>http://istoney.github.io/python/2016/12/08/python-basic-syntax-foundation</link>
+                <guid>http://istoney.github.io/python/2016/12/08/python-basic-syntax-foundation</guid>
+                <pubDate>2016-12-08T00:00:00+08:00</pubDate>
+        </item>
 
         <item>
                 <title>Spark RDD源码解析 - RDD依赖关系</title>
@@ -102,6 +211,73 @@
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;依赖类&lt;/h2&gt;
+
+&lt;p&gt;Spark中用Dependency类来表示在经过转换操作后，父RDD与子RDD之间的联系（依赖关系）。如上所述，Dependency是一个只包含一个&lt;code class=&quot;highlighter-rouge&quot;&gt;def rdd: RDD[T]&lt;/code&gt;方法的抽象类。它有如下几种派生类：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;NarrowDependency
+    &lt;ul&gt;
+      &lt;li&gt;OneToOneDependency&lt;/li&gt;
+      &lt;li&gt;PruneDependency&lt;/li&gt;
+      &lt;li&gt;RangeDependency&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;ShuffleDependency&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;shuffledependency&quot;&gt;ShuffleDependency&lt;/h3&gt;
+
+&lt;p&gt;ShuffleDependency是一种会导致shuffle map stage（是一个在执行DAG时会执行shuffle操作的中间阶段，是后续阶段的输入）的依赖关系。&lt;/p&gt;
+
+&lt;p&gt;一个ShuffleDependency应该属于一个key-value对RDD（其rdd成员的类型为&lt;code class=&quot;highlighter-rouge&quot;&gt;RDD[Product2[K, V]]&lt;/code&gt;）。而每一个ShuffleDependency对象都有一个&lt;strong&gt;shuffleId&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;p&gt;ShuffleDependency使用&lt;code class=&quot;highlighter-rouge&quot;&gt;partitiner&lt;/code&gt;分割shuffle的输出。使用&lt;code class=&quot;highlighter-rouge&quot;&gt;ShuffleManager&lt;/code&gt;来进行注册，以及&lt;code class=&quot;highlighter-rouge&quot;&gt;ContextCleaner&lt;/code&gt;来注册自己进行清洗。每一个ShuffleDependency对象都使用其shuffleId和RDD的分区数目向&lt;code class=&quot;highlighter-rouge&quot;&gt;MapOutputTrackerMaster&lt;/code&gt;注册。&lt;/p&gt;
+
+&lt;p&gt;会使用到ShuffleDependency的场景包括：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;当多个RDD的&lt;code class=&quot;highlighter-rouge&quot;&gt;partitioner&lt;/code&gt;不同时，生成&lt;code class=&quot;highlighter-rouge&quot;&gt;CoGroupedRDD&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;SubtractedRDD&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;通过shuffle操作生成的&lt;code class=&quot;highlighter-rouge&quot;&gt;ShuffledRDD&lt;/code&gt;或&lt;code class=&quot;highlighter-rouge&quot;&gt;ShuffledRowRDD&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;可能用到也可能用不到上述RDD，而会进行shuffle的RDD操作有：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;coalesce
+    &lt;ul&gt;
+      &lt;li&gt;repartition&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;cogroup
+    &lt;ul&gt;
+      &lt;li&gt;intersection&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;subtractByKey
+    &lt;ul&gt;
+      &lt;li&gt;substract&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;sortByKey
+    &lt;ul&gt;
+      &lt;li&gt;sortBy&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;repartitionAndSortWithinPartitions&lt;/li&gt;
+  &lt;li&gt;combineByKeyWithClassTag
+    &lt;ul&gt;
+      &lt;li&gt;combineByKey&lt;/li&gt;
+      &lt;li&gt;aggregateByKey&lt;/li&gt;
+      &lt;li&gt;foldByKey&lt;/li&gt;
+      &lt;li&gt;reduceByKey&lt;/li&gt;
+      &lt;li&gt;countApproxDistinctByKey&lt;/li&gt;
+      &lt;li&gt;groupByKey&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;partitionBy&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h2 id=&quot;rdd-1&quot;&gt;内部RDD类&lt;/h2&gt;
 
@@ -3266,7 +3442,7 @@ Y   I   R
         <item>
                 <title>Spark Programming Guide 编程指南 v1.6.1</title>
                 <description>
-&lt;h2 id=&quot;overview&quot;&gt;# Overview&lt;/h2&gt;
+&lt;h2 id=&quot;overview&quot;&gt;Overview&lt;/h2&gt;
 &lt;p&gt;从一个较高的角度来讲，每个Spark应用都包含一个驱动程序(driver program)，用来运行用户的main函数，并在集群上执行各种并行操作(parallel operations)。Spark中最主要的抽象概念是弹性数据集（Resilient Distributed Dataset, RDD），它是指分布在集群节点上，可以进行并行操作的元素集合。RDD可以从Hadoop文件系统（或者其他任何支持Hadoop文件系统的系统）上的文件开始创建，或者从driver程序中已经存在Scala数据集合上创建，然后进行转化。用户可以让Spark去持久化(persist)内存中的RDD，使其可以在并行操作中重用。此外，当节点失效时，节点上的RDD会自动恢复。&lt;/p&gt;
 
 &lt;p&gt;Spark提供的另外一个抽象概念是可以在并行操作中共享使用的共享变量(shared variables)。默认情况下，Spark会在不同的节点上并行的运行一个函数，也就是任务，并且会把函数中用到的变量拷贝一份分发到各个任务中。但是有时候，有一些变量需要在任务间共享，或者在任务和driver程序之间共享。Spark支持两种类型的共享变量：广播变量(broadcast variables)可以在每个节点的内存中缓存一个变量的值；累加器(accumulators)是一种只能进行“加”操作的变量，例如计数器和求和器。&lt;/p&gt;
@@ -3275,7 +3451,7 @@ Y   I   R
 
 &lt;p&gt;P.s. 本文(翻译)将采用Python作为示例语言&lt;/p&gt;
 
-&lt;h2 id=&quot;linking-with-spark&quot;&gt;# Linking with Spark&lt;/h2&gt;
+&lt;h2 id=&quot;linking-with-spark&quot;&gt;Linking with Spark&lt;/h2&gt;
 &lt;p&gt;Spark 1.6.1可以在Python 2.6+和Python 3.4+上工作。可以使用标准的CPython解释器，所以C语言库，例如NumPy都可以使用，同时Spark还可以和PyPy 2.3+一起工作。&lt;/p&gt;
 
 &lt;p&gt;当在Python中运行Spark应用时，使用Spark目录中的bin/spark-submit脚本。这个脚本会加载Spark的Java/Scala库，并允许你向集群提交应用。你还可以使用bin/pyspark来启动交互式的Python Shell。&lt;/p&gt;
@@ -3295,7 +3471,7 @@ Y   I   R
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&quot;initializing-spark&quot;&gt;# Initializing Spark&lt;/h2&gt;
+&lt;h2 id=&quot;initializing-spark&quot;&gt;Initializing Spark&lt;/h2&gt;
 &lt;p&gt;Spark程序必须做的第一件事是创建一个&lt;a href=&quot;http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.SparkContext&quot;&gt;SparkContext&lt;/a&gt;对象，这个SparkContext对象会告诉Spark怎么去访问集群。为了创建SparkContext，首先需要创建一个&lt;a href=&quot;http://spark.apache.org/docs/latest/api/scala/index.html#org.apache.spark.SparkConf&quot;&gt;SparkConf&lt;/a&gt;对象，它将包含应用的信息。&lt;/p&gt;
 
 &lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;SparkConf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setAppName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;appName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setMaster&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;master&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -3305,7 +3481,7 @@ Y   I   R
 
 &lt;p&gt;appName参数是你的应用的名字，这个名字将会显示在集群的UI。master是一个&lt;a href=&quot;http://spark.apache.org/docs/latest/submitting-applications.html#master-urls&quot;&gt;Spark, Mesos或YARN集群的URL&lt;/a&gt;，或者是一个特殊的“local”字符串表示运行在本地模式。在实际应用中，当运行一个集群式，你不会希望将master硬编码在程序中，而是通过&lt;a href=&quot;http://spark.apache.org/docs/latest/submitting-applications.html&quot;&gt;spark-submit启动应用&lt;/a&gt;，并从命令参数中接收master。当然，对于本地测试和单元测试，你可以传入“local”在进程中运行Spark。&lt;/p&gt;
 
-&lt;h2 id=&quot;using-the-shell&quot;&gt;# Using the Shell&lt;/h2&gt;
+&lt;h3 id=&quot;using-the-shell&quot;&gt;Using the Shell&lt;/h3&gt;
 &lt;p&gt;在PySpark Shell中，一个特殊的，解释器已知的SparkContext对象已经创建好了，叫做sc。这时，你自己创建的SparkContext对象是不会工作的。你可以通过–master参数来设置sc要连接的集群，你还可以通过–py-files参数添加.zip, .egg或者.py等Python文件到运行路径上(多个文件需要用逗号分隔)。你还可以通过–packages参数和一个逗号分隔的maven坐标列表向你的Shell会话添加依赖（Spark包等）。另外的资源库(repositories)可以通过–repositories参数添加。必要的时候，所有Spark包依赖的Python包(Spark包中的requirements.txt文件列出的)都必须用pip进行手动安装。例如，在四个内核上运行bin/pyspark，使用命令：&lt;/p&gt;
 
 &lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;./bin/pyspark --master &lt;span class=&quot;nb&quot;&gt;local&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;4]
@@ -3334,10 +3510,10 @@ Y   I   R
 
 &lt;p&gt;在IPython Notebook服务器启动后，你可以在“File”菜单中创建一个“Python 2”记事本。在记事本中，你可以输入命令&lt;code class=&quot;highlighter-rouge&quot;&gt;%pylab inline&lt;/code&gt;作为记事本的一部分，然后从IPython记事本启动Spark。&lt;/p&gt;
 
-&lt;h2 id=&quot;resilient-distributed-datasets-rdds&quot;&gt;# Resilient Distributed Datasets (RDDs)&lt;/h2&gt;
+&lt;h2 id=&quot;resilient-distributed-datasets-rdds&quot;&gt;Resilient Distributed Datasets (RDDs)&lt;/h2&gt;
 &lt;p&gt;Spark的核心是弹性数据集(RDD)，RDD是一个可以进行并行操作的高容错性元素集合。共有两种方式创建RDD：将driver程序中已存的数据集合并行化(parallelizing)，或者引用外部存储系统中的数据集，例如，共享文件系统、HDFS、HBase，或者任何提供Hadoop InputFormat的数据源。&lt;/p&gt;
 
-&lt;h3 id=&quot;parallelized-collections&quot;&gt;# Parallelized Collections&lt;/h3&gt;
+&lt;h3 id=&quot;parallelized-collections&quot;&gt;Parallelized Collections&lt;/h3&gt;
 &lt;p&gt;并行数据集合通过在driver程序中可迭代的数据集上调用SparkContext的parallelize方法创建。该数据集的元素将会被拷贝去构建可以并行操作的分布式数据集。例如，下面是如何创建一个包含数字1到5的并行数据集的示例：&lt;/p&gt;
 
 &lt;div class=&quot;language-py highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
@@ -3351,7 +3527,7 @@ Y   I   R
 
 &lt;p&gt;注意：在代码中的有些地方会使用分片（slices）（partitions的同义词）来保持后向兼容性。&lt;/p&gt;
 
-&lt;h3 id=&quot;external-datasets&quot;&gt;# External Datasets&lt;/h3&gt;
+&lt;h3 id=&quot;external-datasets&quot;&gt;External Datasets&lt;/h3&gt;
 &lt;p&gt;PySpark可以从任何Hadoop支持的存储系统创建分布式数据集，包括本地文件系统、HDFS、Cassandra、HBase、&lt;a href=&quot;http://wiki.apache.org/hadoop/AmazonS3&quot;&gt;Amazon S3&lt;/a&gt;等。Spark支持文本文件，&lt;a href=&quot;http://hadoop.apache.org/docs/current/api/org/apache/hadoop/mapred/SequenceFileInputFormat.html&quot;&gt;SequenceFiles&lt;/a&gt;，以及任何其他Hadoop输入格式（&lt;a href=&quot;http://hadoop.apache.org/docs/stable/api/org/apache/hadoop/mapred/InputFormat.html&quot;&gt;InputFormat&lt;/a&gt;）。&lt;/p&gt;
 
 &lt;p&gt;文本文件的RDD可以使用SparkContext的&lt;code class=&quot;highlighter-rouge&quot;&gt;textFile&lt;/code&gt;方法创建。这个方法需要一个文件的URI（本地机器的文件路径，或者是&lt;code class=&quot;highlighter-rouge&quot;&gt;hdfs://&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;s3n://&lt;/code&gt;等URI），然后读入该文件，作为以行为基本单位的数据集合。下面是一个调用示例：&lt;/p&gt;
@@ -3459,17 +3635,53 @@ Y   I   R
 
 &lt;p&gt;对于Cassandra/HBase &lt;code class=&quot;highlighter-rouge&quot;&gt;InputFormat&lt;/code&gt;和包含自定义转换器的&lt;code class=&quot;highlighter-rouge&quot;&gt;OutputFormat&lt;/code&gt;的使用，请查看&lt;a href=&quot;https://github.com/apache/spark/tree/master/examples/src/main/python&quot;&gt;Python 示例&lt;/a&gt;和&lt;a href=&quot;https://github.com/apache/spark/tree/master/examples/src/main/scala/org/apache/spark/examples/pythonconverters&quot;&gt;Converted 示例&lt;/a&gt;。&lt;/p&gt;
 
-&lt;h3 id=&quot;rdd-operations&quot;&gt;# RDD Operations&lt;/h3&gt;
+&lt;h3 id=&quot;rdd-operations&quot;&gt;RDD Operations&lt;/h3&gt;
 &lt;p&gt;RDD支持两种类型的操作：转化（&lt;code class=&quot;highlighter-rouge&quot;&gt;transformations&lt;/code&gt;），从一个已存的数据集创建新的数据集；动作（&lt;code class=&quot;highlighter-rouge&quot;&gt;actions&lt;/code&gt;），在数据集上运行一个计算之后想driver程序返回一个结果。例如，&lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt;是一个转化，它将所有数据集元素传入一个函数，并生成一个新RDD表示所有的结果。另一方面，&lt;code class=&quot;highlighter-rouge&quot;&gt;reduce&lt;/code&gt;是一个动作，它通过一些函数收集所有RDD的元素，然后将最终结果返回给driver程序（尽管还有一个并行的&lt;code class=&quot;highlighter-rouge&quot;&gt;reduceByKey&lt;/code&gt;操作是返回值是分布式数据集）。&lt;/p&gt;
 
 &lt;p&gt;Spark中的所有转化都是懒惰的（lazy），即所有计算并不会被立即执行，而是记录下载基础数据集（例如文件）上执行的转化，只有当一个动作被调用，并且需要有一个结果返回给driver程序时这些转化才会执行。这样的设计使得Spark更加高效，例如，当我们发现一个通过&lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt;创建的数据集将会执行&lt;code class=&quot;highlighter-rouge&quot;&gt;reduce&lt;/code&gt;操作，这时只需要返回&lt;code class=&quot;highlighter-rouge&quot;&gt;reduce&lt;/code&gt;的结果，而不需要将&lt;code class=&quot;highlighter-rouge&quot;&gt;map&lt;/code&gt;计算得到的大数据集返回。&lt;/p&gt;
 
 &lt;p&gt;默认情况下，每一个转化的RDD都会在执行动作是重新计算。但是，你可以使用&lt;code class=&quot;highlighter-rouge&quot;&gt;persist&lt;/code&gt;(或&lt;code class=&quot;highlighter-rouge&quot;&gt;cache&lt;/code&gt;)方法在内存中持久化（persist）一个RDD，这时，Spark就会在集群中保留这些元素，以便下次查询是可以快速访问。另外，还支持在硬盘上持久化RDD，或者在多个节点上保存副本。&lt;/p&gt;
 
-&lt;h4 id=&quot;basics&quot;&gt;# Basics&lt;/h4&gt;
+&lt;h4 id=&quot;basics&quot;&gt;Basics&lt;/h4&gt;
+
+&lt;h5 id=&quot;passing-functions-to-spark&quot;&gt;Passing Functions to Spark&lt;/h5&gt;
+
+&lt;h5 id=&quot;understanding-closures&quot;&gt;Understanding closures&lt;/h5&gt;
+
+&lt;h6 id=&quot;example&quot;&gt;Example&lt;/h6&gt;
+
+&lt;h6 id=&quot;local-vs-cluster-modes&quot;&gt;Local vs. cluster modes&lt;/h6&gt;
+
+&lt;h6 id=&quot;printing-elements-of-an-rdd&quot;&gt;Printing elements of an RDD&lt;/h6&gt;
+
+&lt;h5 id=&quot;working-with-key-value-pairs&quot;&gt;Working with Key-Value Pairs&lt;/h5&gt;
+
+&lt;h6 id=&quot;transformations&quot;&gt;Transformations&lt;/h6&gt;
+
+&lt;h6 id=&quot;actions&quot;&gt;Actions&lt;/h6&gt;
+
+&lt;h6 id=&quot;shuffle-operations&quot;&gt;Shuffle operations&lt;/h6&gt;
+
+&lt;p&gt;某些Spark操作会触发shuffle（洗牌）。Shuffle是Spark的一个数据再分配机制，使分区之间的数据重新分组。这一操作通常会在executor（执行器）或机器之间拷贝数据，导致shuffle成为复杂而费时的操作。&lt;/p&gt;
+
+&lt;p&gt;####### Background&lt;/p&gt;
+
+&lt;p&gt;为了理解在shuffle中发生了什么，我们以reduceByKey操作作为例子进行观察。reduceByKey操作会生成一个新的RDD，在其中同一个key的所有value组合成一个元组——key和在与所有与key相关的value上执行reduce函数的结果。挑战在于，与一个key相关的所有value并不会全部都在同一个分区内，甚至不在一个机器上，但是它们必须同地协作来计算结果。&lt;/p&gt;
+
+&lt;p&gt;在Spark中，数据通常不会为了某个特别的操作而在区分之间进行特别的分布。在计算中，单个任务只在单个分区上进行，因此，为了单个reduceByKey任务组织所有数据，Spark需要进行一个all-to-all操作。该操作从所有的分区中读取所有key的value，并将其组织到一起为每个key计算最终结果，这一过程称为shuffle。&lt;/p&gt;
+
+&lt;p&gt;尽管新shuffle的数据的每个分区的元素集合是确定的，以及分区的顺序，但是这些元素之间并没有顺序。如果在shuffle时需要数据保持一定的顺序，你可能需要：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;mapPartitions，使用如.sorted对每个分区进行排序&lt;/li&gt;
+  &lt;li&gt;repartitionAndSortWithinPartitions在并发再分区时对分区进行排序&lt;/li&gt;
+  &lt;li&gt;sortBy来生成全局有序的RDD&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;会引发shuffle的操作包括再分区操作，如&lt;code class=&quot;highlighter-rouge&quot;&gt;repartition&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;coalesce&lt;/code&gt;，·ByKey操作（出了计数），比如&lt;code class=&quot;highlighter-rouge&quot;&gt;groupByKey&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;reduceByKey&lt;/code&gt;，以及join操作，例如&lt;code class=&quot;highlighter-rouge&quot;&gt;cogroup&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;join&lt;/code&gt;。&lt;/p&gt;
 </description>
-                <link>http://istoney.github.io/bigdata/2016/04/30/spark-programming-guide</link>
-                <guid>http://istoney.github.io/bigdata/2016/04/30/spark-programming-guide</guid>
+                <link>http://istoney.github.io/big%20data/2016/04/30/spark-programming-guide</link>
+                <guid>http://istoney.github.io/big%20data/2016/04/30/spark-programming-guide</guid>
                 <pubDate>2016-04-30T00:00:00+08:00</pubDate>
         </item>
 

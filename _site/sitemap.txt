@@ -8,6 +8,7 @@ http://istoney.github.io/rss.xml
 http://istoney.github.io/sitemap.txt
 http://istoney.github.io/tags
 
+http://istoney.github.io/python/2016/12/08/python-basic-syntax-foundation
 http://istoney.github.io/bigdata/2016/11/02/spark-rdd-dependency-analysis
 http://istoney.github.io/job%20hunting/2016/10/04/ms-intern-online-test
 http://istoney.github.io/job%20hunting/2016/09/20/APAC-Problem-Solutions
@@ -24,7 +25,7 @@ http://istoney.github.io/job%20hunting/2016/06/22/leetcode-problems-DP
 http://istoney.github.io/job%20hunting/2016/06/21/leetcode-problems-array
 http://istoney.github.io/job%20hunting/2016/06/20/leetcode-problem-summary
 http://istoney.github.io/job%20hunting/2016/05/15/Job-Hunting-preparation
-http://istoney.github.io/bigdata/2016/04/30/spark-programming-guide
+http://istoney.github.io/big%20data/2016/04/30/spark-programming-guide
 http://istoney.github.io/tools/2016/04/10/grep-command
 http://istoney.github.io/beauty%20of%20programming/2016/04/05/chinese-chess
 http://istoney.github.io/c++/2016/04/04/fork-summary
