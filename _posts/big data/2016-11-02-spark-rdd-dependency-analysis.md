@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Spark RDD源码解析 - RDD依赖关系
-category: BigData
+category: big data
 tags: [spark, RDD]
 ---
 {% include JB/setup %}
