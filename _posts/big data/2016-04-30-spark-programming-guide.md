@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Spark Programming Guide 编程指南 v1.6.1
-category: Big Data
+category: big data
 tags: [spark]
 ---
 {% include JB/setup %}
